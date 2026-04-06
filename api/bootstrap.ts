@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { getRequestLocale } from "./_lib/locale";
 import { getBootstrapPayload } from "./_lib/repository";
 import { assertMethod, sendJson, withApiHandler } from "./_lib/http";
 
@@ -8,6 +9,7 @@ export default async function handler(
 ) {
   await withApiHandler(response, async () => {
     assertMethod(request, ["GET"]);
-    sendJson(response, 200, await getBootstrapPayload());
+    const locale = getRequestLocale(request);
+    sendJson(response, 200, await getBootstrapPayload(locale));
   });
 }

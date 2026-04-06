@@ -66,11 +66,27 @@ export const demoLandingBlocks: LandingBlock[] = [
   {
     id: "block_hero_flow",
     slug: "live-ops-ready",
-    eyebrow: "Operational shell",
-    title: "Clean SPA layout with room for later brand direction.",
-    body: "Typography, spacing and surfaces are already separated from content so a later design system can replace the visuals without reworking the app structure.",
+    eyebrow: "Működő shell",
+    eyebrowI18n: {
+      hu: "Működő shell",
+      en: "Operational shell"
+    },
+    title: "Tiszta SPA layout, későbbi brand iránynak is hagyott hellyel.",
+    titleI18n: {
+      hu: "Tiszta SPA layout, későbbi brand iránynak is hagyott hellyel.",
+      en: "Clean SPA layout with room for later brand direction."
+    },
+    body: "A tipográfia, a spacing és a felületi logika már külön rétegben van, ezért később új vizuális rendszerre is átállhat az app szerkezeti törés nélkül.",
+    bodyI18n: {
+      hu: "A tipográfia, a spacing és a felületi logika már külön rétegben van, ezért később új vizuális rendszerre is átállhat az app szerkezeti törés nélkül.",
+      en: "Typography, spacing and surfaces are already separated from content so a later design system can replace the visuals without reworking the app structure."
+    },
     tone: "signal",
-    ctaLabel: "Open dashboard",
+    ctaLabel: "Dashboard megnyitása",
+    ctaLabelI18n: {
+      hu: "Dashboard megnyitása",
+      en: "Open dashboard"
+    },
     ctaHref: "/app",
     isPublished: true,
     createdAt: now
@@ -78,11 +94,27 @@ export const demoLandingBlocks: LandingBlock[] = [
   {
     id: "block_auth_stack",
     slug: "auth-ready",
-    eyebrow: "Auth stack",
-    title: "Firebase handles the session, Supabase keeps the data model.",
-    body: "The starter is prepared for email/password login, Google login, bearer-token API calls and a later RLS-aligned database flow.",
+    eyebrow: "Auth réteg",
+    eyebrowI18n: {
+      hu: "Auth réteg",
+      en: "Auth stack"
+    },
+    title: "A sessiont Firebase kezeli, az adatmodellt a Supabase tartja.",
+    titleI18n: {
+      hu: "A sessiont Firebase kezeli, az adatmodellt a Supabase tartja.",
+      en: "Firebase handles the session, Supabase keeps the data model."
+    },
+    body: "A starter elő van készítve email/jelszó és Google belépésre, bearer-tokenes API hívásokra és egy későbbi RLS-hez igazított adatfolyamra.",
+    bodyI18n: {
+      hu: "A starter elő van készítve email/jelszó és Google belépésre, bearer-tokenes API hívásokra és egy későbbi RLS-hez igazított adatfolyamra.",
+      en: "The starter is prepared for email/password login, Google login, bearer-token API calls and a later RLS-aligned database flow."
+    },
     tone: "focus",
-    ctaLabel: "View components",
+    ctaLabel: "Komponensek megnyitása",
+    ctaLabelI18n: {
+      hu: "Komponensek megnyitása",
+      en: "View components"
+    },
     ctaHref: "#component-showcase",
     isPublished: true,
     createdAt: now
@@ -90,11 +122,27 @@ export const demoLandingBlocks: LandingBlock[] = [
   {
     id: "block_delivery",
     slug: "ship-fast",
-    eyebrow: "Delivery path",
-    title: "Vercel, Playwright and Vitest are part of the default structure.",
-    body: "The repository is prepared for preview and production environments, local quality gates and later CI automation.",
+    eyebrow: "Szállítási út",
+    eyebrowI18n: {
+      hu: "Szállítási út",
+      en: "Delivery path"
+    },
+    title: "A Vercel, a Playwright és a Vitest már a kiinduló struktúra része.",
+    titleI18n: {
+      hu: "A Vercel, a Playwright és a Vitest már a kiinduló struktúra része.",
+      en: "Vercel, Playwright and Vitest are part of the default structure."
+    },
+    body: "A repository elő van készítve preview és production környezetre, helyi minőségi kapukra és későbbi CI automatizálásra is.",
+    bodyI18n: {
+      hu: "A repository elő van készítve preview és production környezetre, helyi minőségi kapukra és későbbi CI automatizálásra is.",
+      en: "The repository is prepared for preview and production environments, local quality gates and later CI automation."
+    },
     tone: "calm",
-    ctaLabel: "Review setup",
+    ctaLabel: "Beállítás áttekintése",
+    ctaLabelI18n: {
+      hu: "Beállítás áttekintése",
+      en: "Review setup"
+    },
     ctaHref: "#setup",
     isPublished: true,
     createdAt: now
@@ -105,9 +153,17 @@ export const demoItems: ItemRecord[] = [
   {
     id: "item_roadmap",
     ownerId: "user_alma",
-    title: "Brand workshop notes",
+    title: "Brand workshop jegyzetek",
+    titleI18n: {
+      hu: "Brand workshop jegyzetek",
+      en: "Brand workshop notes"
+    },
     summary:
-      "Private draft block used as a safe space for early concept notes.",
+      "Privát vázlatblokk a korai koncepciós jegyzetek biztonságos gyűjtésére.",
+    summaryI18n: {
+      hu: "Privát vázlatblokk a korai koncepciós jegyzetek biztonságos gyűjtésére.",
+      en: "Private draft block used as a safe space for early concept notes."
+    },
     visibility: "private",
     isPinned: true,
     createdAt: now,
@@ -116,8 +172,17 @@ export const demoItems: ItemRecord[] = [
   {
     id: "item_onboarding",
     ownerId: "user_alma",
-    title: "Shared onboarding checklist",
-    summary: "Visible to signed-in users, but editable only by the owner.",
+    title: "Megosztott onboarding ellenőrzőlista",
+    titleI18n: {
+      hu: "Megosztott onboarding ellenőrzőlista",
+      en: "Shared onboarding checklist"
+    },
+    summary:
+      "A belépett felhasználók látják, de szerkeszteni csak a tulajdonos tudja.",
+    summaryI18n: {
+      hu: "A belépett felhasználók látják, de szerkeszteni csak a tulajdonos tudja.",
+      en: "Visible to signed-in users, but editable only by the owner."
+    },
     visibility: "members",
     isPinned: false,
     createdAt: now,
@@ -126,8 +191,16 @@ export const demoItems: ItemRecord[] = [
   {
     id: "item_release",
     ownerId: "user_noah",
-    title: "Public release message",
-    summary: "Public example entry that also appears on the landing feed.",
+    title: "Publikus release üzenet",
+    titleI18n: {
+      hu: "Publikus release üzenet",
+      en: "Public release message"
+    },
+    summary: "Publikus mintaelem, ami a landing feedben is megjelenik.",
+    summaryI18n: {
+      hu: "Publikus mintaelem, ami a landing feedben is megjelenik.",
+      en: "Public example entry that also appears on the landing feed."
+    },
     visibility: "public",
     isPinned: false,
     createdAt: now,

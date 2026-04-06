@@ -6,6 +6,8 @@ import {
   MoonStar,
   SunMedium
 } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { Link, NavLink } from "react-router-dom";
 import { startTransition, useOptimistic } from "react";
 import { AppLogo } from "@/components/common/app-logo";
@@ -19,12 +21,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
+import { updateProfilePreferences } from "@/features/preferences/preferences-service";
+import { getLocaleLabel, getThemeLabel } from "@/lib/i18n/helpers";
+import { cn } from "@/lib/utils";
 import { useAuth } from "@/providers/use-auth";
 import { useI18n } from "@/providers/use-i18n";
 import { useTheme } from "@/providers/use-theme";
-import { getLocaleLabel, getThemeLabel } from "@/lib/i18n/helpers";
 import type { Locale, ThemeMode } from "@/types/domain";
-import { cn } from "@/lib/utils";
 
 const navigation = [
   { to: "/", key: "nav.home" },
@@ -45,9 +48,11 @@ function ThemeIcon({ theme }: { theme: ThemeMode }) {
 }
 
 export function SiteHeader({ compact = false }: { compact?: boolean }) {
-  const { isAuthenticated, session, signOut, updateSession } = useAuth();
+  const { bearerToken, isAuthenticated, session, signOut, updateSession } =
+    useAuth();
   const { locale, setLocale, t } = useI18n();
   const { theme, setTheme } = useTheme();
+  const queryClient = useQueryClient();
   const [optimisticLocale, setOptimisticLocale] = useOptimistic(
     locale,
     (_, next: Locale) => next
@@ -57,7 +62,32 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
     (_, next: ThemeMode) => next
   );
 
+  async function persistPreferences(nextLocale: Locale, nextTheme: ThemeMode) {
+    if (!isAuthenticated || !session || !bearerToken) {
+      return;
+    }
+
+    const result = await updateProfilePreferences(bearerToken, {
+      displayName: session.displayName,
+      avatarUrl: session.avatarUrl,
+      language: nextLocale,
+      theme: nextTheme
+    });
+
+    queryClient.setQueryData(["profile", bearerToken], result);
+    startTransition(() => {
+      updateSession({
+        avatarUrl: result.profile.avatarUrl,
+        displayName: result.profile.displayName,
+        language: result.profile.language,
+        theme: result.profile.theme
+      });
+    });
+  }
+
   function handleLocaleChange(nextLocale: Locale) {
+    const previousLocale = optimisticLocale;
+
     startTransition(() => {
       setOptimisticLocale(nextLocale);
       setLocale(nextLocale);
@@ -65,15 +95,39 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
         updateSession({ language: nextLocale });
       }
     });
+
+    void persistPreferences(nextLocale, optimisticTheme).catch(() => {
+      startTransition(() => {
+        setOptimisticLocale(previousLocale);
+        setLocale(previousLocale);
+        if (isAuthenticated) {
+          updateSession({ language: previousLocale });
+        }
+      });
+      toast.error(t("preferences.error"));
+    });
   }
 
   function handleThemeChange(nextTheme: ThemeMode) {
+    const previousTheme = optimisticTheme;
+
     startTransition(() => {
       setOptimisticTheme(nextTheme);
       setTheme(nextTheme);
       if (isAuthenticated) {
         updateSession({ theme: nextTheme });
       }
+    });
+
+    void persistPreferences(optimisticLocale, nextTheme).catch(() => {
+      startTransition(() => {
+        setOptimisticTheme(previousTheme);
+        setTheme(previousTheme);
+        if (isAuthenticated) {
+          updateSession({ theme: previousTheme });
+        }
+      });
+      toast.error(t("preferences.error"));
     });
   }
 

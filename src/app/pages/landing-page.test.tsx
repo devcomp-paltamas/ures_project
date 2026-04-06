@@ -33,7 +33,7 @@ describe("LandingPage", () => {
     expect(
       screen.getAllByText("Publikus minták adatbázisból").length
     ).toBeGreaterThan(0);
-    expect(screen.getByText("Public release message")).toBeTruthy();
+    expect(screen.getByText("Publikus release üzenet")).toBeTruthy();
     expect(screen.getAllByText("Komponens bemutató").length).toBeGreaterThan(0);
   });
 

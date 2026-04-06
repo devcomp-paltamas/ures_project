@@ -1,12 +1,12 @@
 import { mockBootstrap } from "@/api/mock-api";
 import { httpGet } from "@/api/http";
 import { env } from "@/lib/env";
-import type { BootstrapPayload } from "@/types/domain";
+import type { BootstrapPayload, Locale } from "@/types/domain";
 
-export async function getBootstrapData() {
+export async function getBootstrapData(locale: Locale) {
   if (env.authMode === "mock") {
-    return mockBootstrap();
+    return mockBootstrap(locale);
   }
 
-  return httpGet<BootstrapPayload>("/api/bootstrap");
+  return httpGet<BootstrapPayload>(`/api/bootstrap?locale=${locale}`);
 }

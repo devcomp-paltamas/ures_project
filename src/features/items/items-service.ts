@@ -6,18 +6,23 @@ import {
 } from "@/api/mock-api";
 import { httpDelete, httpGet, httpPatch, httpPost } from "@/api/http";
 import { env } from "@/lib/env";
-import type { ItemInput, ItemRecord, ItemsPayload } from "@/types/domain";
+import type {
+  ItemInput,
+  ItemRecord,
+  ItemsPayload,
+  Locale
+} from "@/types/domain";
 
 function shouldUseMockApi() {
   return env.authMode === "mock";
 }
 
-export async function listItems(bearerToken: string | null) {
+export async function listItems(bearerToken: string | null, locale: Locale) {
   if (shouldUseMockApi()) {
-    return mockListItems(bearerToken);
+    return mockListItems(bearerToken, locale);
   }
 
-  return httpGet<ItemsPayload>("/api/items", bearerToken);
+  return httpGet<ItemsPayload>(`/api/items?locale=${locale}`, bearerToken);
 }
 
 export async function createItem(bearerToken: string | null, input: ItemInput) {

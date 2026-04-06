@@ -14,25 +14,46 @@ describe("demo api store", () => {
   });
 
   it("returns only public bootstrap data", () => {
-    const payload = getBootstrapPayload();
+    const payload = getBootstrapPayload("hu");
 
     expect(payload.landingBlocks.length).toBeGreaterThan(0);
     expect(
       payload.publicItems.every((item) => item.visibility === "public")
     ).toBe(true);
+    expect(payload.landingBlocks[0]?.eyebrow).toBe("Működő shell");
+  });
+
+  it("resolves bootstrap and list items in the requested locale", () => {
+    const session = getSessionByDemoBearerToken("demo-bearer-token");
+    if (!session) {
+      throw new Error("Demo session missing.");
+    }
+
+    const bootstrapPayload = getBootstrapPayload("en");
+    const itemsPayload = listItemsForSession(session, "en");
+
+    expect(bootstrapPayload.landingBlocks[0]?.eyebrow).toBe(
+      "Operational shell"
+    );
+    expect(bootstrapPayload.publicItems[0]?.title).toBe(
+      "Public release message"
+    );
+    expect(
+      itemsPayload.items.some((item) => item.title === "Brand workshop notes")
+    ).toBe(true);
   });
 
   it("filters accessible items by session visibility", () => {
-    const publicItems = listItemsForSession(null);
+    const publicItems = listItemsForSession(null, "hu");
     const signedInSession = getSessionByDemoBearerToken("demo-bearer-token");
 
     expect(
       publicItems.items.every((item) => item.visibility === "public")
     ).toBe(true);
     expect(signedInSession).not.toBeNull();
-    expect(listItemsForSession(signedInSession).items.length).toBeGreaterThan(
-      publicItems.items.length
-    );
+    expect(
+      listItemsForSession(signedInSession, "hu").items.length
+    ).toBeGreaterThan(publicItems.items.length);
   });
 
   it("updates profile and creates items for the active user", () => {

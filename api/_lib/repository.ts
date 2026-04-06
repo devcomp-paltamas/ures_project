@@ -1,4 +1,9 @@
 import type { PostgrestError } from "@supabase/supabase-js";
+import {
+  createLocalizedText,
+  isLocalizedText,
+  resolveLocalizedText
+} from "@/lib/localized-text";
 import type {
   AppPreferenceInput,
   AuthProvider,
@@ -6,6 +11,8 @@ import type {
   ItemInput,
   ItemRecord,
   LandingBlock,
+  LocalizedText,
+  Locale,
   ProfileRecord,
   UserSession
 } from "@/types/domain";
@@ -45,7 +52,9 @@ interface ItemRow {
   id: string;
   owner_id: string;
   title: string;
+  title_i18n?: LocalizedText | null;
   summary: string;
+  summary_i18n?: LocalizedText | null;
   visibility: "private" | "members" | "public";
   is_pinned: boolean;
   created_at: string;
@@ -56,10 +65,14 @@ interface LandingBlockRow {
   id: string;
   slug: string;
   eyebrow: string;
+  eyebrow_i18n?: LocalizedText | null;
   title: string;
+  title_i18n?: LocalizedText | null;
   body: string;
+  body_i18n?: LocalizedText | null;
   tone: "signal" | "calm" | "focus";
   cta_label: string;
+  cta_label_i18n?: LocalizedText | null;
   cta_href: string;
   is_published: boolean;
   created_at: string;
@@ -117,12 +130,26 @@ function mapSession(row: ProfileRow, provider: AuthProvider): UserSession {
   };
 }
 
-function mapItem(row: ItemRow): ItemRecord {
+function readLocalizedText(value: unknown) {
+  return isLocalizedText(value) ? value : null;
+}
+
+function mapItem(row: ItemRow, locale: Locale): ItemRecord {
   return {
     id: row.id,
     ownerId: row.owner_id,
-    title: row.title,
-    summary: row.summary,
+    title: resolveLocalizedText(
+      locale,
+      readLocalizedText(row.title_i18n),
+      row.title
+    ),
+    titleI18n: readLocalizedText(row.title_i18n) ?? undefined,
+    summary: resolveLocalizedText(
+      locale,
+      readLocalizedText(row.summary_i18n),
+      row.summary
+    ),
+    summaryI18n: readLocalizedText(row.summary_i18n) ?? undefined,
     visibility: row.visibility,
     isPinned: row.is_pinned,
     createdAt: row.created_at,
@@ -130,15 +157,35 @@ function mapItem(row: ItemRow): ItemRecord {
   };
 }
 
-function mapLandingBlock(row: LandingBlockRow): LandingBlock {
+function mapLandingBlock(row: LandingBlockRow, locale: Locale): LandingBlock {
   return {
     id: row.id,
     slug: row.slug,
-    eyebrow: row.eyebrow,
-    title: row.title,
-    body: row.body,
+    eyebrow: resolveLocalizedText(
+      locale,
+      readLocalizedText(row.eyebrow_i18n),
+      row.eyebrow
+    ),
+    eyebrowI18n: readLocalizedText(row.eyebrow_i18n) ?? undefined,
+    title: resolveLocalizedText(
+      locale,
+      readLocalizedText(row.title_i18n),
+      row.title
+    ),
+    titleI18n: readLocalizedText(row.title_i18n) ?? undefined,
+    body: resolveLocalizedText(
+      locale,
+      readLocalizedText(row.body_i18n),
+      row.body
+    ),
+    bodyI18n: readLocalizedText(row.body_i18n) ?? undefined,
     tone: row.tone,
-    ctaLabel: row.cta_label,
+    ctaLabel: resolveLocalizedText(
+      locale,
+      readLocalizedText(row.cta_label_i18n),
+      row.cta_label
+    ),
+    ctaLabelI18n: readLocalizedText(row.cta_label_i18n) ?? undefined,
     ctaHref: row.cta_href,
     isPublished: row.is_published,
     createdAt: row.created_at
@@ -188,9 +235,9 @@ export async function ensureProfileSession(identity: AuthIdentity) {
   return mapSession(upsertedProfile, identity.provider);
 }
 
-export async function getBootstrapPayload() {
+export async function getBootstrapPayload(locale: Locale = "hu") {
   if (shouldUseDemoRepository()) {
-    return getDemoBootstrapPayload();
+    return getDemoBootstrapPayload(locale);
   }
 
   const supabase = requireSupabase();
@@ -201,7 +248,7 @@ export async function getBootstrapPayload() {
     supabase
       .from("landing_blocks")
       .select(
-        "id, slug, eyebrow, title, body, tone, cta_label, cta_href, is_published, created_at"
+        "id, slug, eyebrow, eyebrow_i18n, title, title_i18n, body, body_i18n, tone, cta_label, cta_label_i18n, cta_href, is_published, created_at"
       )
       .eq("is_published", true)
       .order("created_at", { ascending: true })
@@ -209,7 +256,7 @@ export async function getBootstrapPayload() {
     supabase
       .from("items")
       .select(
-        "id, owner_id, title, summary, visibility, is_pinned, created_at, updated_at"
+        "id, owner_id, title, title_i18n, summary, summary_i18n, visibility, is_pinned, created_at, updated_at"
       )
       .eq("visibility", "public")
       .order("updated_at", { ascending: false })
@@ -220,21 +267,26 @@ export async function getBootstrapPayload() {
   handleSupabaseError(itemError, "Failed to load public items");
 
   return {
-    landingBlocks: (landingRows ?? []).map(mapLandingBlock),
-    publicItems: (itemRows ?? []).map(mapItem)
+    landingBlocks: (landingRows ?? []).map((row) =>
+      mapLandingBlock(row, locale)
+    ),
+    publicItems: (itemRows ?? []).map((row) => mapItem(row, locale))
   } satisfies BootstrapPayload;
 }
 
-export async function listItemsForSession(session: UserSession | null) {
+export async function listItemsForSession(
+  session: UserSession | null,
+  locale: Locale = "hu"
+) {
   if (shouldUseDemoRepository()) {
-    return listDemoItemsForSession(session);
+    return listDemoItemsForSession(session, locale);
   }
 
   const supabase = requireSupabase();
   const baseQuery = supabase
     .from("items")
     .select(
-      "id, owner_id, title, summary, visibility, is_pinned, created_at, updated_at"
+      "id, owner_id, title, title_i18n, summary, summary_i18n, visibility, is_pinned, created_at, updated_at"
     )
     .order("updated_at", { ascending: false });
 
@@ -243,7 +295,7 @@ export async function listItemsForSession(session: UserSession | null) {
       .eq("visibility", "public")
       .returns<ItemRow[]>();
     handleSupabaseError(error, "Failed to list public items");
-    return { items: (data ?? []).map(mapItem) };
+    return { items: (data ?? []).map((row) => mapItem(row, locale)) };
   }
 
   const { data, error } = await baseQuery
@@ -251,7 +303,7 @@ export async function listItemsForSession(session: UserSession | null) {
     .returns<ItemRow[]>();
 
   handleSupabaseError(error, "Failed to list items");
-  return { items: (data ?? []).map(mapItem) };
+  return { items: (data ?? []).map((row) => mapItem(row, locale)) };
 }
 
 export async function getProfileForSession(session: UserSession) {
@@ -321,17 +373,19 @@ export async function createItemForSession(
     .insert({
       owner_id: session.id,
       title: input.title,
+      title_i18n: createLocalizedText(input.title),
       summary: input.summary,
+      summary_i18n: createLocalizedText(input.summary),
       visibility: input.visibility,
       is_pinned: input.isPinned
     })
     .select(
-      "id, owner_id, title, summary, visibility, is_pinned, created_at, updated_at"
+      "id, owner_id, title, title_i18n, summary, summary_i18n, visibility, is_pinned, created_at, updated_at"
     )
     .single<ItemRow>();
 
   handleSupabaseError(error, "Failed to create item");
-  return mapItem(data);
+  return mapItem(data, session.language);
 }
 
 async function getExistingItem(itemId: string) {
@@ -339,7 +393,7 @@ async function getExistingItem(itemId: string) {
   const { data, error } = await supabase
     .from("items")
     .select(
-      "id, owner_id, title, summary, visibility, is_pinned, created_at, updated_at"
+      "id, owner_id, title, title_i18n, summary, summary_i18n, visibility, is_pinned, created_at, updated_at"
     )
     .eq("id", itemId)
     .maybeSingle<ItemRow>();
@@ -371,19 +425,21 @@ export async function updateItemForSession(
     .from("items")
     .update({
       title: input.title,
+      title_i18n: createLocalizedText(input.title),
       summary: input.summary,
+      summary_i18n: createLocalizedText(input.summary),
       visibility: input.visibility,
       is_pinned: input.isPinned
     })
     .eq("id", itemId)
     .eq("owner_id", session.id)
     .select(
-      "id, owner_id, title, summary, visibility, is_pinned, created_at, updated_at"
+      "id, owner_id, title, title_i18n, summary, summary_i18n, visibility, is_pinned, created_at, updated_at"
     )
     .single<ItemRow>();
 
   handleSupabaseError(error, "Failed to update item");
-  return mapItem(data);
+  return mapItem(data, session.language);
 }
 
 export async function deleteItemForSession(

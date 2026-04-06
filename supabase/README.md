@@ -38,6 +38,11 @@ Ez a mappa a projekt első tiszta SQL alapját tartalmazza a 5. ponthoz.
    - row level security bekapcsolása
    - olvasási és írási policy-k
 
+3. `0003_localized_content.sql`
+   - kétnyelvű `jsonb` mezők a landing blokkokhoz és itemekhez
+   - meglévő rekordok visszatöltése `hu` + `en` értékekkel
+   - alap landing demó blokkok létrehozása, ha még nincs tartalom
+
 ## Javasolt alkalmazás
 
 Supabase CLI-vel:
@@ -50,6 +55,7 @@ Vagy SQL Editorban sorrendben:
 
 1. `0001_initial_schema.sql`
 2. `0002_rls_policies.sql`
+3. `0003_localized_content.sql`
 
 ## Fontos megjegyzés
 

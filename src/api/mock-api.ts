@@ -1,6 +1,10 @@
 import { appConfig } from "@/lib/constants";
 import { demoSessions } from "@/lib/demo-data";
 import {
+  createLocalizedText,
+  resolveLocalizedText
+} from "@/lib/localized-text";
+import {
   readDemoDatabase,
   readSession,
   resetDemoDatabase,
@@ -14,21 +18,43 @@ import type {
   ItemInput,
   ItemRecord,
   ItemsPayload,
+  Locale,
   ProfilePayload,
   UserSession
 } from "@/types/domain";
 
 const mockDelay = 320;
 
+function hydrateSession(session: UserSession): UserSession {
+  const database = readDemoDatabase();
+  const profile = database.profiles.find(
+    (entry) => entry.userId === session.id
+  );
+
+  if (!profile) {
+    return session;
+  }
+
+  return {
+    ...session,
+    email: profile.email,
+    displayName: profile.displayName,
+    avatarUrl: profile.avatarUrl,
+    language: profile.language,
+    theme: profile.theme
+  };
+}
+
 function getSessionByBearer(bearerToken: string | null) {
   if (!bearerToken) {
     return null;
   }
 
-  return (
+  const matchedSession =
     demoSessions.find((entry) => entry.bearerToken === bearerToken) ??
-    readSession()
-  );
+    readSession();
+
+  return matchedSession ? hydrateSession(matchedSession) : null;
 }
 
 function requireSession(bearerToken: string | null) {
@@ -60,12 +86,36 @@ function getAccessibleItems(session: UserSession | null) {
   });
 }
 
-export async function mockBootstrap(): Promise<BootstrapPayload> {
+function resolveItemLocale(locale: Locale, item: ItemRecord): ItemRecord {
+  return {
+    ...item,
+    title: resolveLocalizedText(locale, item.titleI18n, item.title),
+    summary: resolveLocalizedText(locale, item.summaryI18n, item.summary)
+  };
+}
+
+export async function mockBootstrap(
+  locale: Locale = "hu"
+): Promise<BootstrapPayload> {
   await sleep(mockDelay);
   const database = readDemoDatabase();
   return {
-    landingBlocks: database.landingBlocks.filter((block) => block.isPublished),
-    publicItems: database.items.filter((item) => item.visibility === "public")
+    landingBlocks: database.landingBlocks
+      .filter((block) => block.isPublished)
+      .map((block) => ({
+        ...block,
+        eyebrow: resolveLocalizedText(locale, block.eyebrowI18n, block.eyebrow),
+        title: resolveLocalizedText(locale, block.titleI18n, block.title),
+        body: resolveLocalizedText(locale, block.bodyI18n, block.body),
+        ctaLabel: resolveLocalizedText(
+          locale,
+          block.ctaLabelI18n,
+          block.ctaLabel
+        )
+      })),
+    publicItems: database.items
+      .filter((item) => item.visibility === "public")
+      .map((item) => resolveItemLocale(locale, item))
   };
 }
 
@@ -81,16 +131,10 @@ export async function mockSignIn(
     throw new Error("INVALID_CREDENTIALS");
   }
 
+  const hydratedSession = hydrateSession(demoUser);
+
   return {
-    session: {
-      id: demoUser.id,
-      email: demoUser.email,
-      displayName: demoUser.displayName,
-      avatarUrl: demoUser.avatarUrl,
-      language: demoUser.language,
-      theme: demoUser.theme,
-      provider: demoUser.provider
-    },
+    session: hydratedSession,
     bearerToken: demoUser.bearerToken
   };
 }
@@ -150,26 +194,23 @@ export async function mockGoogleSignIn(): Promise<AuthResult> {
     throw new Error("GOOGLE_PROVIDER_NOT_AVAILABLE");
   }
 
+  const hydratedSession = hydrateSession(googleUser);
+
   return {
-    session: {
-      id: googleUser.id,
-      email: googleUser.email,
-      displayName: googleUser.displayName,
-      avatarUrl: googleUser.avatarUrl,
-      language: googleUser.language,
-      theme: googleUser.theme,
-      provider: googleUser.provider
-    },
+    session: hydratedSession,
     bearerToken: googleUser.bearerToken
   };
 }
 
 export async function mockListItems(
-  bearerToken: string | null
+  bearerToken: string | null,
+  locale: Locale = "hu"
 ): Promise<ItemsPayload> {
   await sleep(mockDelay);
   return {
-    items: getAccessibleItems(getSessionByBearer(bearerToken))
+    items: getAccessibleItems(getSessionByBearer(bearerToken)).map((item) =>
+      resolveItemLocale(locale, item)
+    )
   };
 }
 
@@ -186,7 +227,9 @@ export async function mockCreateItem(
     id: generateId("item"),
     ownerId: session.id,
     title: input.title,
+    titleI18n: createLocalizedText(input.title),
     summary: input.summary,
+    summaryI18n: createLocalizedText(input.summary),
     visibility: input.visibility,
     isPinned: input.isPinned,
     createdAt: now,
@@ -217,7 +260,9 @@ export async function mockUpdateItem(
   }
 
   item.title = input.title;
+  item.titleI18n = createLocalizedText(input.title);
   item.summary = input.summary;
+  item.summaryI18n = createLocalizedText(input.summary);
   item.visibility = input.visibility;
   item.isPinned = input.isPinned;
   item.updatedAt = new Date().toISOString();

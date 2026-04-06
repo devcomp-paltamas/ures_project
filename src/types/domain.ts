@@ -8,6 +8,11 @@ export type ThemeMode = (typeof themeModes)[number];
 export type ItemVisibility = (typeof itemVisibilities)[number];
 export type AuthProvider = (typeof authProviders)[number];
 
+export interface LocalizedText {
+  hu: string;
+  en: string;
+}
+
 export interface UserSession {
   id: string;
   email: string;
@@ -33,10 +38,14 @@ export interface LandingBlock {
   id: string;
   slug: string;
   eyebrow: string;
+  eyebrowI18n?: LocalizedText;
   title: string;
+  titleI18n?: LocalizedText;
   body: string;
+  bodyI18n?: LocalizedText;
   tone: "signal" | "calm" | "focus";
   ctaLabel: string;
+  ctaLabelI18n?: LocalizedText;
   ctaHref: string;
   isPublished: boolean;
   createdAt: string;
@@ -46,7 +55,9 @@ export interface ItemRecord {
   id: string;
   ownerId: string;
   title: string;
+  titleI18n?: LocalizedText;
   summary: string;
+  summaryI18n?: LocalizedText;
   visibility: ItemVisibility;
   isPinned: boolean;
   createdAt: string;

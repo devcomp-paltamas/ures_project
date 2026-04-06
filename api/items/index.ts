@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { requireApiSession } from "../_lib/auth";
+import { getRequestLocale } from "../_lib/locale";
 import { createItemForSession, listItemsForSession } from "../_lib/repository";
 import { itemInputSchema } from "../_lib/schemas";
 import {
@@ -18,7 +19,8 @@ export default async function handler(
 
     if (method === "GET") {
       const session = await requireApiSession(request);
-      sendJson(response, 200, await listItemsForSession(session));
+      const locale = getRequestLocale(request);
+      sendJson(response, 200, await listItemsForSession(session, locale));
       return;
     }
 

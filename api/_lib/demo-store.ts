@@ -1,11 +1,17 @@
 import { appConfig } from "@/lib/constants";
 import { createDemoDatabase, demoSessions } from "@/lib/demo-data";
+import {
+  createLocalizedText,
+  resolveLocalizedText
+} from "@/lib/localized-text";
 import type {
   AppPreferenceInput,
   AuthProvider,
   DemoDatabaseShape,
   ItemInput,
   ItemRecord,
+  LandingBlock,
+  Locale,
   ProfileRecord,
   UserSession
 } from "@/types/domain";
@@ -70,6 +76,27 @@ function createSession(
   };
 }
 
+function resolveItemLocale(locale: Locale, item: ItemRecord): ItemRecord {
+  return {
+    ...item,
+    title: resolveLocalizedText(locale, item.titleI18n, item.title),
+    summary: resolveLocalizedText(locale, item.summaryI18n, item.summary)
+  };
+}
+
+function resolveLandingBlockLocale(
+  locale: Locale,
+  block: LandingBlock
+): LandingBlock {
+  return {
+    ...block,
+    eyebrow: resolveLocalizedText(locale, block.eyebrowI18n, block.eyebrow),
+    title: resolveLocalizedText(locale, block.titleI18n, block.title),
+    body: resolveLocalizedText(locale, block.bodyI18n, block.body),
+    ctaLabel: resolveLocalizedText(locale, block.ctaLabelI18n, block.ctaLabel)
+  };
+}
+
 function getAccessibleItems(
   database: DemoDatabaseShape,
   session: UserSession | null
@@ -107,11 +134,15 @@ export function resetDemoStore() {
   globalThis.__uresalapApiStore = createInitialStore();
 }
 
-export function getBootstrapPayload() {
+export function getBootstrapPayload(locale: Locale = "hu") {
   const { database } = getStore();
   return {
-    landingBlocks: database.landingBlocks.filter((block) => block.isPublished),
-    publicItems: database.items.filter((item) => item.visibility === "public")
+    landingBlocks: database.landingBlocks
+      .filter((block) => block.isPublished)
+      .map((block) => resolveLandingBlockLocale(locale, block)),
+    publicItems: database.items
+      .filter((item) => item.visibility === "public")
+      .map((item) => resolveItemLocale(locale, item))
   };
 }
 
@@ -181,10 +212,15 @@ export function ensureProfileSession(identity: AuthIdentity) {
   return createSession(profile, identity.provider);
 }
 
-export function listItemsForSession(session: UserSession | null) {
+export function listItemsForSession(
+  session: UserSession | null,
+  locale: Locale = "hu"
+) {
   const { database } = getStore();
   return {
-    items: getAccessibleItems(database, session)
+    items: getAccessibleItems(database, session).map((item) =>
+      resolveItemLocale(locale, item)
+    )
   };
 }
 
@@ -228,7 +264,9 @@ export function createItemForSession(session: UserSession, input: ItemInput) {
     id: `item_${crypto.randomUUID()}`,
     ownerId: session.id,
     title: input.title,
+    titleI18n: createLocalizedText(input.title),
     summary: input.summary,
+    summaryI18n: createLocalizedText(input.summary),
     visibility: input.visibility,
     isPinned: input.isPinned,
     createdAt: now,
@@ -251,7 +289,9 @@ export function updateItemForSession(
   );
 
   item.title = input.title;
+  item.titleI18n = createLocalizedText(input.title);
   item.summary = input.summary;
+  item.summaryI18n = createLocalizedText(input.summary);
   item.visibility = input.visibility;
   item.isPinned = input.isPinned;
   item.updatedAt = new Date().toISOString();
