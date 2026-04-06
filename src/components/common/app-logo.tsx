@@ -14,7 +14,9 @@ export function AppLogo({ className }: { className?: string }) {
         <span className="text-sm font-semibold uppercase tracking-[0.22em] text-muted-foreground">
           uresalap
         </span>
-        <span className="text-base font-semibold text-foreground">{t("common.appSubtitle")}</span>
+        <span className="text-base font-semibold text-foreground">
+          {t("common.appSubtitle")}
+        </span>
       </div>
     </div>
   );

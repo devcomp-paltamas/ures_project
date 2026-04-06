@@ -1,0 +1,12 @@
+node_modules
+dist
+coverage
+.vite
+.vercel
+.playwright
+.playwright-mcp
+playwright-report
+test-results
+package-lock.json
+public/sw.js
+public/workbox-*.js

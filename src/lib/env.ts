@@ -16,16 +16,17 @@ export const env = {
     storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET ?? "",
     messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID ?? "",
     appId: import.meta.env.VITE_FIREBASE_APP_ID ?? "",
-    googleProviderId: import.meta.env.VITE_FIREBASE_GOOGLE_PROVIDER_ID ?? "google.com"
+    googleProviderId:
+      import.meta.env.VITE_FIREBASE_GOOGLE_PROVIDER_ID ?? "google.com"
   }
 } as const;
 
 export function isFirebaseConfigured() {
   return Boolean(
     env.firebase.apiKey &&
-      env.firebase.authDomain &&
-      env.firebase.projectId &&
-      env.firebase.appId
+    env.firebase.authDomain &&
+    env.firebase.projectId &&
+    env.firebase.appId
   );
 }
 

@@ -82,11 +82,21 @@ function createSessionFromFirebaseUser(user: User) {
     id: user.uid,
     email: user.email ?? storedSession?.email ?? "",
     displayName:
-      user.displayName?.trim() || storedSession?.displayName || user.email?.split("@")[0] || "User",
+      user.displayName?.trim() ||
+      storedSession?.displayName ||
+      user.email?.split("@")[0] ||
+      "User",
     avatarUrl: user.photoURL ?? storedSession?.avatarUrl ?? null,
-    language: getSessionLanguage(storedSession?.id === user.uid ? storedSession : null),
-    theme: getSessionTheme(storedSession?.id === user.uid ? storedSession : null),
-    provider: getProvider(user, storedSession?.id === user.uid ? storedSession : null)
+    language: getSessionLanguage(
+      storedSession?.id === user.uid ? storedSession : null
+    ),
+    theme: getSessionTheme(
+      storedSession?.id === user.uid ? storedSession : null
+    ),
+    provider: getProvider(
+      user,
+      storedSession?.id === user.uid ? storedSession : null
+    )
   } satisfies UserSession;
 }
 
@@ -163,7 +173,11 @@ export async function signInWithPassword(email: string, password: string) {
   return createFirebaseAuthResult(credential.user);
 }
 
-export async function signUpWithPassword(email: string, password: string, displayName: string) {
+export async function signUpWithPassword(
+  email: string,
+  password: string,
+  displayName: string
+) {
   if (shouldUseMockAuth()) {
     return mockSignUp(email, password, displayName);
   }
@@ -173,7 +187,11 @@ export async function signUpWithPassword(email: string, password: string, displa
     throw new Error("Firebase auth is not configured.");
   }
 
-  const credential = await createUserWithEmailAndPassword(auth, email, password);
+  const credential = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
   await updateProfile(credential.user, { displayName });
   await credential.user.reload();
 
@@ -206,7 +224,9 @@ export async function signOut() {
   return Promise.resolve();
 }
 
-export function subscribeToAuthState(listener: (snapshot: AuthStateSnapshot) => void) {
+export function subscribeToAuthState(
+  listener: (snapshot: AuthStateSnapshot) => void
+) {
   if (shouldUseMockAuth()) {
     listener(getInitialAuthState());
 
@@ -279,7 +299,10 @@ export async function getBearerToken(forceRefresh = false) {
 
 export function getAuthErrorKey(error: unknown) {
   const errorCode =
-    typeof error === "object" && error !== null && "code" in error && typeof error.code === "string"
+    typeof error === "object" &&
+    error !== null &&
+    "code" in error &&
+    typeof error.code === "string"
       ? error.code
       : error instanceof Error
         ? error.message

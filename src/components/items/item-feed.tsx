@@ -1,7 +1,13 @@
 import { useDeferredValue, useMemo, useState } from "react";
 import { Pin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -51,8 +57,12 @@ export function ItemFeed({
     <section className="space-y-6">
       <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
         <div>
-          <h2 className="text-3xl font-semibold tracking-tight text-foreground">{t("dashboard.title")}</h2>
-          <p className="mt-2 max-w-2xl text-base leading-7 text-muted-foreground">{t("dashboard.body")}</p>
+          <h2 className="text-3xl font-semibold tracking-tight text-foreground">
+            {t("dashboard.title")}
+          </h2>
+          <p className="mt-2 max-w-2xl text-base leading-7 text-muted-foreground">
+            {t("dashboard.body")}
+          </p>
         </div>
         <div className="w-full max-w-md">
           <Input
@@ -70,8 +80,12 @@ export function ItemFeed({
         <TabsList>
           <TabsTrigger value="all">{t("dashboard.filterAll")}</TabsTrigger>
           <TabsTrigger value="mine">{t("dashboard.filterMine")}</TabsTrigger>
-          <TabsTrigger value="shared">{t("dashboard.filterShared")}</TabsTrigger>
-          <TabsTrigger value="public">{t("dashboard.filterPublic")}</TabsTrigger>
+          <TabsTrigger value="shared">
+            {t("dashboard.filterShared")}
+          </TabsTrigger>
+          <TabsTrigger value="public">
+            {t("dashboard.filterPublic")}
+          </TabsTrigger>
         </TabsList>
       </Tabs>
 
@@ -106,7 +120,9 @@ export function ItemFeed({
                   <p className="text-sm text-muted-foreground">
                     {t("common.owner")}:{" "}
                     <span className="font-medium text-foreground">
-                      {item.ownerId === session?.id ? session.displayName : item.ownerId}
+                      {item.ownerId === session?.id
+                        ? session.displayName
+                        : item.ownerId}
                     </span>
                   </p>
                 </CardContent>
@@ -126,7 +142,11 @@ export function ItemFeed({
   );
 }
 
-function VisibilityBadge({ visibility }: { visibility: ItemRecord["visibility"] }) {
+function VisibilityBadge({
+  visibility
+}: {
+  visibility: ItemRecord["visibility"];
+}) {
   const { t } = useI18n();
 
   if (visibility === "public") {

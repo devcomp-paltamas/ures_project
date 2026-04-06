@@ -53,8 +53,8 @@ function usage(): never {
       "  bun sqlite-explorer.ts ./db.sqlite --tables",
       "  bun sqlite-explorer.ts ./db.sqlite --schema users",
       '  bun sqlite-explorer.ts ./db.sqlite --query "SELECT * FROM users LIMIT 10"',
-      '  bun sqlite-explorer.ts ./db.sqlite --readonly --query "SELECT COUNT(*) AS n FROM users"',
-    ].join("\n"),
+      '  bun sqlite-explorer.ts ./db.sqlite --readonly --query "SELECT COUNT(*) AS n FROM users"'
+    ].join("\n")
   );
   process.exit(2);
 }
@@ -86,7 +86,8 @@ function printTable(rows: any[]): void {
   }
 
   const sep = "+" + widths.map((w) => "-".repeat(w + 2)).join("+") + "+";
-  const header = "|" + cols.map((c, i) => " " + c.padEnd(widths[i]) + " ").join("|") + "|";
+  const header =
+    "|" + cols.map((c, i) => " " + c.padEnd(widths[i]) + " ").join("|") + "|";
 
   console.log(sep);
   console.log(header);
@@ -122,8 +123,8 @@ function listTables(db: Database, asJson: boolean): void {
       JSON.stringify(
         rows.map((r) => r.name),
         null,
-        2,
-      ),
+        2
+      )
     );
     return;
   }
@@ -151,7 +152,11 @@ function showSchema(db: Database, table: string, asJson: boolean): void {
 
   if (asJson) {
     console.log(
-      JSON.stringify({ table: t, columns, foreignKeys: fks, indexes: indexDetails }, null, 2),
+      JSON.stringify(
+        { table: t, columns, foreignKeys: fks, indexes: indexDetails },
+        null,
+        2
+      )
     );
     return;
   }
@@ -192,10 +197,13 @@ function runQuery(db: Database, sql: string, asJson: boolean): void {
     const res = stmt.run();
     const out = {
       changes: res.changes,
-      lastInsertRowid: res.lastInsertRowid,
+      lastInsertRowid: res.lastInsertRowid
     };
     if (asJson) console.log(JSON.stringify(out, null, 2));
-    else console.log(`OK (changes=${out.changes}, lastInsertRowid=${out.lastInsertRowid})`);
+    else
+      console.log(
+        `OK (changes=${out.changes}, lastInsertRowid=${out.lastInsertRowid})`
+      );
   }
 }
 
@@ -206,7 +214,8 @@ function main() {
   const db = new Database(args.dbPath, { readonly: !!args.readonly });
 
   try {
-    const didSomething = !!args.tables || !!args.schema || typeof args.query === "string";
+    const didSomething =
+      !!args.tables || !!args.schema || typeof args.query === "string";
 
     if (!didSomething) {
       // Sensible default: list tables.

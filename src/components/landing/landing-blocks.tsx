@@ -1,6 +1,12 @@
 import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useI18n } from "@/providers/i18n-provider";
 import type { LandingBlock } from "@/types/domain";
@@ -29,13 +35,18 @@ export function LandingBlocks({
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-foreground">
             {t("landing.sectionTitle")}
           </h2>
-          <p className="mt-4 text-base leading-7 text-muted-foreground">{t("landing.sectionBody")}</p>
+          <p className="mt-4 text-base leading-7 text-muted-foreground">
+            {t("landing.sectionBody")}
+          </p>
         </div>
 
         <div className="mt-8 grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
           {isLoading
             ? Array.from({ length: 3 }).map((_, index) => (
-                <div key={index} className="rounded-[2rem] border border-border/70 p-6">
+                <div
+                  key={index}
+                  className="rounded-[2rem] border border-border/70 p-6"
+                >
                   <Skeleton className="h-5 w-24" />
                   <Skeleton className="mt-5 h-8 w-4/5" />
                   <Skeleton className="mt-4 h-24 w-full" />
@@ -51,10 +62,15 @@ export function LandingBlocks({
                   key={block.id}
                 >
                   <CardHeader>
-                    <Badge variant={block.tone === "focus" ? "accent" : "outline"} className="w-fit">
+                    <Badge
+                      variant={block.tone === "focus" ? "accent" : "outline"}
+                      className="w-fit"
+                    >
                       {block.eyebrow}
                     </Badge>
-                    <CardTitle className="max-w-lg text-2xl">{block.title}</CardTitle>
+                    <CardTitle className="max-w-lg text-2xl">
+                      {block.title}
+                    </CardTitle>
                     <CardDescription className="max-w-lg text-sm leading-6">
                       {block.body}
                     </CardDescription>

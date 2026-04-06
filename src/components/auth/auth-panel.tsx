@@ -4,7 +4,13 @@ import { toast } from "sonner";
 import { FormSubmitButton } from "@/components/common/form-submit-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getAuthErrorKey, isUsingMockAuth } from "@/features/auth/auth-service";
@@ -36,35 +42,38 @@ export function AuthPanel() {
   const [googlePending, setGooglePending] = useState(false);
   const isMockAuth = isUsingMockAuth();
 
-  const [state, submitAction] = useActionState<AuthFormState, FormData>(async (_, formData) => {
-    const email = getStringValue(formData, "email").trim();
-    const password = getStringValue(formData, "password");
-    const displayName = getStringValue(formData, "displayName").trim();
+  const [state, submitAction] = useActionState<AuthFormState, FormData>(
+    async (_, formData) => {
+      const email = getStringValue(formData, "email").trim();
+      const password = getStringValue(formData, "password");
+      const displayName = getStringValue(formData, "displayName").trim();
 
-    try {
-      if (mode === "signin") {
-        await signIn(email, password);
-      } else {
-        await signUp(email, password, displayName);
+      try {
+        if (mode === "signin") {
+          await signIn(email, password);
+        } else {
+          await signUp(email, password, displayName);
+        }
+
+        toast.success(t("auth.success"));
+        startTransition(() => {
+          void navigate("/app");
+        });
+
+        return {
+          status: "success",
+          message: t("auth.success")
+        };
+      } catch (error) {
+        const errorKey = getAuthErrorKey(error);
+        return {
+          status: "error",
+          message: t(errorKey)
+        };
       }
-
-      toast.success(t("auth.success"));
-      startTransition(() => {
-        void navigate("/app");
-      });
-
-      return {
-        status: "success",
-        message: t("auth.success")
-      };
-    } catch (error) {
-      const errorKey = getAuthErrorKey(error);
-      return {
-        status: "error",
-        message: t(errorKey)
-      };
-    }
-  }, initialState);
+    },
+    initialState
+  );
 
   async function handleGoogleLogin() {
     setGooglePending(true);
@@ -88,7 +97,9 @@ export function AuthPanel() {
         <Badge variant="accent" className="w-fit">
           {mode === "signin" ? t("auth.signInTitle") : t("auth.signUpTitle")}
         </Badge>
-        <CardTitle>{mode === "signin" ? t("auth.signInTitle") : t("auth.signUpTitle")}</CardTitle>
+        <CardTitle>
+          {mode === "signin" ? t("auth.signInTitle") : t("auth.signUpTitle")}
+        </CardTitle>
         <CardDescription>
           {mode === "signin" ? t("auth.signInBody") : t("auth.signUpBody")}
         </CardDescription>
@@ -126,15 +137,22 @@ export function AuthPanel() {
           {state.message ? (
             <p
               className={
-                state.status === "error" ? "text-sm text-destructive" : "text-sm text-primary"
+                state.status === "error"
+                  ? "text-sm text-destructive"
+                  : "text-sm text-primary"
               }
             >
               {state.message}
             </p>
           ) : null}
 
-          <FormSubmitButton className="w-full" pendingLabel={t("common.saving")}>
-            {mode === "signin" ? t("auth.submitSignIn") : t("auth.submitSignUp")}
+          <FormSubmitButton
+            className="w-full"
+            pendingLabel={t("common.saving")}
+          >
+            {mode === "signin"
+              ? t("auth.submitSignIn")
+              : t("auth.submitSignUp")}
           </FormSubmitButton>
         </form>
 
@@ -184,9 +202,13 @@ export function AuthPanel() {
           }}
           type="button"
         >
-          {mode === "signin" ? t("auth.switchToSignUp") : t("auth.switchToSignIn")}{" "}
+          {mode === "signin"
+            ? t("auth.switchToSignUp")
+            : t("auth.switchToSignIn")}{" "}
           <span className="font-semibold text-foreground">
-            {mode === "signin" ? t("auth.switchActionSignUp") : t("auth.switchActionSignIn")}
+            {mode === "signin"
+              ? t("auth.switchActionSignUp")
+              : t("auth.switchActionSignIn")}
           </span>
         </button>
       </CardContent>

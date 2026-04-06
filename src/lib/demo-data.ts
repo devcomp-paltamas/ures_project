@@ -68,8 +68,7 @@ export const demoLandingBlocks: LandingBlock[] = [
     slug: "live-ops-ready",
     eyebrow: "Operational shell",
     title: "Clean SPA layout with room for later brand direction.",
-    body:
-      "Typography, spacing and surfaces are already separated from content so a later design system can replace the visuals without reworking the app structure.",
+    body: "Typography, spacing and surfaces are already separated from content so a later design system can replace the visuals without reworking the app structure.",
     tone: "signal",
     ctaLabel: "Open dashboard",
     ctaHref: "/app",
@@ -81,8 +80,7 @@ export const demoLandingBlocks: LandingBlock[] = [
     slug: "auth-ready",
     eyebrow: "Auth stack",
     title: "Firebase handles the session, Supabase keeps the data model.",
-    body:
-      "The starter is prepared for email/password login, Google login, bearer-token API calls and a later RLS-aligned database flow.",
+    body: "The starter is prepared for email/password login, Google login, bearer-token API calls and a later RLS-aligned database flow.",
     tone: "focus",
     ctaLabel: "View components",
     ctaHref: "#component-showcase",
@@ -94,8 +92,7 @@ export const demoLandingBlocks: LandingBlock[] = [
     slug: "ship-fast",
     eyebrow: "Delivery path",
     title: "Vercel, Playwright and Vitest are part of the default structure.",
-    body:
-      "The repository is prepared for preview and production environments, local quality gates and later CI automation.",
+    body: "The repository is prepared for preview and production environments, local quality gates and later CI automation.",
     tone: "calm",
     ctaLabel: "Review setup",
     ctaHref: "#setup",
@@ -109,7 +106,8 @@ export const demoItems: ItemRecord[] = [
     id: "item_roadmap",
     ownerId: "user_alma",
     title: "Brand workshop notes",
-    summary: "Private draft block used as a safe space for early concept notes.",
+    summary:
+      "Private draft block used as a safe space for early concept notes.",
     visibility: "private",
     isPinned: true,
     createdAt: now,

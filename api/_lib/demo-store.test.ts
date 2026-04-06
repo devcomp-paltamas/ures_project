@@ -17,16 +17,22 @@ describe("demo api store", () => {
     const payload = getBootstrapPayload();
 
     expect(payload.landingBlocks.length).toBeGreaterThan(0);
-    expect(payload.publicItems.every((item) => item.visibility === "public")).toBe(true);
+    expect(
+      payload.publicItems.every((item) => item.visibility === "public")
+    ).toBe(true);
   });
 
   it("filters accessible items by session visibility", () => {
     const publicItems = listItemsForSession(null);
     const signedInSession = getSessionByDemoBearerToken("demo-bearer-token");
 
-    expect(publicItems.items.every((item) => item.visibility === "public")).toBe(true);
+    expect(
+      publicItems.items.every((item) => item.visibility === "public")
+    ).toBe(true);
     expect(signedInSession).not.toBeNull();
-    expect(listItemsForSession(signedInSession).items.length).toBeGreaterThan(publicItems.items.length);
+    expect(listItemsForSession(signedInSession).items.length).toBeGreaterThan(
+      publicItems.items.length
+    );
   });
 
   it("updates profile and creates items for the active user", () => {

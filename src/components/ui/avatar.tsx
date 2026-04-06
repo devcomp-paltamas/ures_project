@@ -2,10 +2,16 @@ import * as AvatarPrimitive from "@radix-ui/react-avatar";
 import type { ComponentPropsWithoutRef } from "react";
 import { cn, getInitials } from "@/lib/utils";
 
-export function Avatar({ className, ...props }: ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>) {
+export function Avatar({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>) {
   return (
     <AvatarPrimitive.Root
-      className={cn("relative flex h-11 w-11 shrink-0 overflow-hidden rounded-full", className)}
+      className={cn(
+        "relative flex h-11 w-11 shrink-0 overflow-hidden rounded-full",
+        className
+      )}
       {...props}
     />
   );
@@ -14,7 +20,12 @@ export function Avatar({ className, ...props }: ComponentPropsWithoutRef<typeof 
 export function AvatarImage(
   props: ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
 ) {
-  return <AvatarPrimitive.Image className="aspect-square h-full w-full object-cover" {...props} />;
+  return (
+    <AvatarPrimitive.Image
+      className="aspect-square h-full w-full object-cover"
+      {...props}
+    />
+  );
 }
 
 export function AvatarFallback({

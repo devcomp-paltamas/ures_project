@@ -12,7 +12,12 @@ export function DialogOverlay({
   className,
   ...props
 }: ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>) {
-  return <DialogPrimitive.Overlay className={cn("fixed inset-0 z-50 bg-black/50", className)} {...props} />;
+  return (
+    <DialogPrimitive.Overlay
+      className={cn("fixed inset-0 z-50 bg-black/50", className)}
+      {...props}
+    />
+  );
 }
 
 export function DialogContent({
@@ -40,7 +45,10 @@ export function DialogContent({
   );
 }
 
-export function DialogHeader({ className, ...props }: ComponentPropsWithoutRef<"div">) {
+export function DialogHeader({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<"div">) {
   return <div className={cn("space-y-2", className)} {...props} />;
 }
 
@@ -48,7 +56,12 @@ export function DialogTitle({
   className,
   ...props
 }: ComponentPropsWithoutRef<typeof DialogPrimitive.Title>) {
-  return <DialogPrimitive.Title className={cn("text-xl font-semibold", className)} {...props} />;
+  return (
+    <DialogPrimitive.Title
+      className={cn("text-xl font-semibold", className)}
+      {...props}
+    />
+  );
 }
 
 export function DialogDescription({

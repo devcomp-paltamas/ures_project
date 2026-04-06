@@ -1,4 +1,10 @@
-import { Bell, CheckCircle2, CircleAlert, Layers3, Sparkles } from "lucide-react";
+import {
+  Bell,
+  CheckCircle2,
+  CircleAlert,
+  Layers3,
+  Sparkles
+} from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -9,7 +15,13 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
@@ -36,7 +48,9 @@ export function ComponentShowcase() {
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-foreground">
             {t("components.title")}
           </h2>
-          <p className="mt-4 text-base leading-7 text-muted-foreground">{t("landing.componentBody")}</p>
+          <p className="mt-4 text-base leading-7 text-muted-foreground">
+            {t("landing.componentBody")}
+          </p>
         </div>
 
         <div className="mt-8 grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
@@ -53,16 +67,24 @@ export function ComponentShowcase() {
               </div>
               <div className="flex flex-wrap gap-3">
                 <Button>{t("components.primaryButton")}</Button>
-                <Button variant="secondary">{t("components.secondaryButton")}</Button>
-                <Button variant="outline">{t("components.outlineButton")}</Button>
+                <Button variant="secondary">
+                  {t("components.secondaryButton")}
+                </Button>
+                <Button variant="outline">
+                  {t("components.outlineButton")}
+                </Button>
               </div>
               <Separator />
               <div className="flex items-center justify-between rounded-[1.5rem] border border-border/70 bg-background/70 px-4 py-3">
                 <div className="flex items-center gap-3">
                   <Bell className="h-4 w-4 text-primary" />
                   <div>
-                    <p className="text-sm font-semibold">{t("components.preferenceRowTitle")}</p>
-                    <p className="text-sm text-muted-foreground">{t("components.preferenceRowBody")}</p>
+                    <p className="text-sm font-semibold">
+                      {t("components.preferenceRowTitle")}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {t("components.preferenceRowBody")}
+                    </p>
                   </div>
                 </div>
                 <Switch checked />
@@ -78,21 +100,54 @@ export function ComponentShowcase() {
             <CardContent>
               <Tabs defaultValue="signals">
                 <TabsList>
-                  <TabsTrigger value="signals">{t("components.tabSignals")}</TabsTrigger>
-                  <TabsTrigger value="surfaces">{t("components.tabSurfaces")}</TabsTrigger>
-                  <TabsTrigger value="states">{t("components.tabStates")}</TabsTrigger>
+                  <TabsTrigger value="signals">
+                    {t("components.tabSignals")}
+                  </TabsTrigger>
+                  <TabsTrigger value="surfaces">
+                    {t("components.tabSurfaces")}
+                  </TabsTrigger>
+                  <TabsTrigger value="states">
+                    {t("components.tabStates")}
+                  </TabsTrigger>
                 </TabsList>
-                <TabsContent value="signals" className="mt-6 grid gap-4 sm:grid-cols-2">
-                  <ShowcaseTile icon={Sparkles} text={t("components.signalHero")} />
-                  <ShowcaseTile icon={Layers3} text={t("components.signalLayout")} />
+                <TabsContent
+                  value="signals"
+                  className="mt-6 grid gap-4 sm:grid-cols-2"
+                >
+                  <ShowcaseTile
+                    icon={Sparkles}
+                    text={t("components.signalHero")}
+                  />
+                  <ShowcaseTile
+                    icon={Layers3}
+                    text={t("components.signalLayout")}
+                  />
                 </TabsContent>
-                <TabsContent value="surfaces" className="mt-6 grid gap-4 sm:grid-cols-2">
-                  <ShowcaseTile icon={CheckCircle2} text={t("components.surfaceHeader")} />
-                  <ShowcaseTile icon={Bell} text={t("components.surfaceProtected")} />
+                <TabsContent
+                  value="surfaces"
+                  className="mt-6 grid gap-4 sm:grid-cols-2"
+                >
+                  <ShowcaseTile
+                    icon={CheckCircle2}
+                    text={t("components.surfaceHeader")}
+                  />
+                  <ShowcaseTile
+                    icon={Bell}
+                    text={t("components.surfaceProtected")}
+                  />
                 </TabsContent>
-                <TabsContent value="states" className="mt-6 grid gap-4 sm:grid-cols-2">
-                  <ShowcaseTile icon={CheckCircle2} text={t("components.stateAuth")} />
-                  <ShowcaseTile icon={Sparkles} text={t("components.stateLocale")} />
+                <TabsContent
+                  value="states"
+                  className="mt-6 grid gap-4 sm:grid-cols-2"
+                >
+                  <ShowcaseTile
+                    icon={CheckCircle2}
+                    text={t("components.stateAuth")}
+                  />
+                  <ShowcaseTile
+                    icon={Sparkles}
+                    text={t("components.stateLocale")}
+                  />
                 </TabsContent>
               </Tabs>
             </CardContent>
@@ -109,16 +164,28 @@ export function ComponentShowcase() {
             <CardContent>
               <Accordion className="w-full" collapsible type="single">
                 <AccordionItem value="item-1">
-                  <AccordionTrigger>{t("components.accordionItemOne")}</AccordionTrigger>
-                  <AccordionContent>{t("components.accordionItemOneBody")}</AccordionContent>
+                  <AccordionTrigger>
+                    {t("components.accordionItemOne")}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    {t("components.accordionItemOneBody")}
+                  </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-2">
-                  <AccordionTrigger>{t("components.accordionItemTwo")}</AccordionTrigger>
-                  <AccordionContent>{t("components.accordionItemTwoBody")}</AccordionContent>
+                  <AccordionTrigger>
+                    {t("components.accordionItemTwo")}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    {t("components.accordionItemTwoBody")}
+                  </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-3">
-                  <AccordionTrigger>{t("components.accordionItemThree")}</AccordionTrigger>
-                  <AccordionContent>{t("components.accordionItemThreeBody")}</AccordionContent>
+                  <AccordionTrigger>
+                    {t("components.accordionItemThree")}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    {t("components.accordionItemThreeBody")}
+                  </AccordionContent>
                 </AccordionItem>
               </Accordion>
             </CardContent>
@@ -133,12 +200,16 @@ export function ComponentShowcase() {
               <Alert>
                 <CircleAlert className="h-4 w-4" />
                 <AlertTitle>{t("components.alertSuccessTitle")}</AlertTitle>
-                <AlertDescription>{t("components.alertSuccessBody")}</AlertDescription>
+                <AlertDescription>
+                  {t("components.alertSuccessBody")}
+                </AlertDescription>
               </Alert>
               <Alert variant="destructive">
                 <CircleAlert className="h-4 w-4" />
                 <AlertTitle>{t("components.alertWarningTitle")}</AlertTitle>
-                <AlertDescription>{t("components.alertWarningBody")}</AlertDescription>
+                <AlertDescription>
+                  {t("components.alertWarningBody")}
+                </AlertDescription>
               </Alert>
             </CardContent>
           </Card>
@@ -240,7 +311,13 @@ function ShowcaseTile({
   );
 }
 
-function CheckboxRow({ label, checked = false }: { label: string; checked?: boolean }) {
+function CheckboxRow({
+  label,
+  checked = false
+}: {
+  label: string;
+  checked?: boolean;
+}) {
   return (
     <label className="flex items-center gap-3 rounded-[1.4rem] border border-border/70 bg-background/70 px-4 py-3 text-sm font-medium text-foreground">
       <Checkbox checked={checked} />

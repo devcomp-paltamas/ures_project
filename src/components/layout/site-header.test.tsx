@@ -18,7 +18,9 @@ describe("SiteHeader locale switch", () => {
     await user.click(screen.getByRole("button", { name: /magyar/i }));
     await user.click(await screen.findByText("Angol"));
 
-    expect(await screen.findByRole("button", { name: /english/i })).toBeTruthy();
+    expect(
+      await screen.findByRole("button", { name: /english/i })
+    ).toBeTruthy();
     expect(screen.getByRole("link", { name: /sign in/i })).toBeTruthy();
   });
 });

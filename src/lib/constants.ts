@@ -1,6 +1,7 @@
 export const appConfig = {
   name: "uresalap",
-  description: "Továbbfejleszthető full-stack starter React, Firebase, Supabase és Vercel alappal.",
+  description:
+    "Továbbfejleszthető full-stack starter React, Firebase, Supabase és Vercel alappal.",
   mockBearerToken: "demo-bearer-token"
 } as const;
 

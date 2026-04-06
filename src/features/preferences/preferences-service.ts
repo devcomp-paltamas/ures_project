@@ -23,5 +23,9 @@ export async function updateProfilePreferences(
     return mockUpdateProfile(bearerToken, input);
   }
 
-  return httpPatch<AppPreferenceInput, ProfilePayload>("/api/preferences", input, bearerToken);
+  return httpPatch<AppPreferenceInput, ProfilePayload>(
+    "/api/preferences",
+    input,
+    bearerToken
+  );
 }

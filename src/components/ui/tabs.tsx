@@ -10,7 +10,10 @@ export function TabsList({
 }: ComponentPropsWithoutRef<typeof TabsPrimitive.List>) {
   return (
     <TabsPrimitive.List
-      className={cn("inline-flex rounded-full bg-muted p-1 text-muted-foreground", className)}
+      className={cn(
+        "inline-flex rounded-full bg-muted p-1 text-muted-foreground",
+        className
+      )}
       {...props}
     />
   );

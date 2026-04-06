@@ -10,7 +10,10 @@ import {
   withApiHandler
 } from "../_lib/http";
 
-export default async function handler(request: VercelRequest, response: VercelResponse) {
+export default async function handler(
+  request: VercelRequest,
+  response: VercelResponse
+) {
   await withApiHandler(response, async () => {
     const method = assertMethod(request, ["PATCH", "DELETE"]);
     const session = await requireApiSession(request);

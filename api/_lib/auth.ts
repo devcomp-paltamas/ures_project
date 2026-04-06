@@ -5,7 +5,10 @@ import { getAuth } from "firebase-admin/auth";
 import type { AuthProvider, UserSession } from "@/types/domain";
 import { ApiError } from "./errors";
 import { isFirebaseAdminConfigured, serverEnv } from "./env";
-import { getAuthResultForDemoToken, getSessionByDemoBearerToken } from "./demo-store";
+import {
+  getAuthResultForDemoToken,
+  getSessionByDemoBearerToken
+} from "./demo-store";
 import { readBearerToken } from "./http";
 import { ensureProfileSession } from "./repository";
 
@@ -54,7 +57,10 @@ async function verifyFirebaseIdentityToken(idToken: string) {
 
   const decoded = await getAuth(adminApp).verifyIdToken(idToken);
   if (!decoded.uid || !decoded.email) {
-    throw new ApiError(401, "Authenticated Firebase user is missing email or id.");
+    throw new ApiError(
+      401,
+      "Authenticated Firebase user is missing email or id."
+    );
   }
 
   return {
@@ -63,7 +69,7 @@ async function verifyFirebaseIdentityToken(idToken: string) {
     displayName:
       typeof decoded.name === "string" && decoded.name.trim()
         ? decoded.name.trim()
-        : decoded.email.split("@")[0] ?? "User",
+        : (decoded.email.split("@")[0] ?? "User"),
     avatarUrl: typeof decoded.picture === "string" ? decoded.picture : null,
     provider: getProvider(decoded.firebase?.sign_in_provider)
   } satisfies FirebaseIdentity;
@@ -93,8 +99,9 @@ async function verifyAppSessionToken(token: string) {
       displayName:
         typeof decoded.displayName === "string" && decoded.displayName.trim()
           ? decoded.displayName
-          : decoded.email.split("@")[0] ?? "User",
-      avatarUrl: typeof decoded.avatarUrl === "string" ? decoded.avatarUrl : null,
+          : (decoded.email.split("@")[0] ?? "User"),
+      avatarUrl:
+        typeof decoded.avatarUrl === "string" ? decoded.avatarUrl : null,
       provider: decoded.provider === "google" ? "google" : "password"
     });
   } catch {

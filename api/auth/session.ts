@@ -1,9 +1,17 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { exchangeIdTokenForSession } from "../_lib/auth";
 import { authSessionRequestSchema } from "../_lib/schemas";
-import { assertMethod, readJsonBody, sendJson, withApiHandler } from "../_lib/http";
+import {
+  assertMethod,
+  readJsonBody,
+  sendJson,
+  withApiHandler
+} from "../_lib/http";
 
-export default async function handler(request: VercelRequest, response: VercelResponse) {
+export default async function handler(
+  request: VercelRequest,
+  response: VercelResponse
+) {
   await withApiHandler(response, async () => {
     assertMethod(request, ["POST"]);
 

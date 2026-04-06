@@ -28,12 +28,20 @@ export async function createItem(bearerToken: string | null, input: ItemInput) {
   return httpPost<ItemInput, ItemRecord>("/api/items", input, bearerToken);
 }
 
-export async function updateItem(bearerToken: string | null, id: string, input: ItemInput) {
+export async function updateItem(
+  bearerToken: string | null,
+  id: string,
+  input: ItemInput
+) {
   if (shouldUseMockApi()) {
     return mockUpdateItem(bearerToken, id, input);
   }
 
-  return httpPatch<ItemInput, ItemRecord>(`/api/items/${id}`, input, bearerToken);
+  return httpPatch<ItemInput, ItemRecord>(
+    `/api/items/${id}`,
+    input,
+    bearerToken
+  );
 }
 
 export async function deleteItem(bearerToken: string | null, id: string) {

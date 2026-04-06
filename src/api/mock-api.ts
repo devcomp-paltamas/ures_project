@@ -25,7 +25,10 @@ function getSessionByBearer(bearerToken: string | null) {
     return null;
   }
 
-  return demoSessions.find((entry) => entry.bearerToken === bearerToken) ?? readSession();
+  return (
+    demoSessions.find((entry) => entry.bearerToken === bearerToken) ??
+    readSession()
+  );
 }
 
 function requireSession(bearerToken: string | null) {
@@ -66,9 +69,14 @@ export async function mockBootstrap(): Promise<BootstrapPayload> {
   };
 }
 
-export async function mockSignIn(email: string, password: string): Promise<AuthResult> {
+export async function mockSignIn(
+  email: string,
+  password: string
+): Promise<AuthResult> {
   await sleep(mockDelay);
-  const demoUser = demoSessions.find((entry) => entry.email === email && entry.password === password);
+  const demoUser = demoSessions.find(
+    (entry) => entry.email === email && entry.password === password
+  );
   if (!demoUser) {
     throw new Error("INVALID_CREDENTIALS");
   }
@@ -156,7 +164,9 @@ export async function mockGoogleSignIn(): Promise<AuthResult> {
   };
 }
 
-export async function mockListItems(bearerToken: string | null): Promise<ItemsPayload> {
+export async function mockListItems(
+  bearerToken: string | null
+): Promise<ItemsPayload> {
   await sleep(mockDelay);
   return {
     items: getAccessibleItems(getSessionByBearer(bearerToken))
@@ -235,11 +245,15 @@ export async function mockDeleteItem(bearerToken: string | null, id: string) {
   return { id };
 }
 
-export async function mockGetProfile(bearerToken: string | null): Promise<ProfilePayload> {
+export async function mockGetProfile(
+  bearerToken: string | null
+): Promise<ProfilePayload> {
   await sleep(mockDelay);
   const session = requireSession(bearerToken);
   const database = readDemoDatabase();
-  const profile = database.profiles.find((entry) => entry.userId === session.id);
+  const profile = database.profiles.find(
+    (entry) => entry.userId === session.id
+  );
   if (!profile) {
     throw new Error("NOT_FOUND");
   }
@@ -254,7 +268,9 @@ export async function mockUpdateProfile(
   await sleep(mockDelay);
   const session = requireSession(bearerToken);
   const database = readDemoDatabase();
-  const profile = database.profiles.find((entry) => entry.userId === session.id);
+  const profile = database.profiles.find(
+    (entry) => entry.userId === session.id
+  );
   if (!profile) {
     throw new Error("NOT_FOUND");
   }

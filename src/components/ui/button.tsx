@@ -9,10 +9,13 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:brightness-110",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        outline: "border border-border bg-transparent text-foreground hover:bg-muted",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        outline:
+          "border border-border bg-transparent text-foreground hover:bg-muted",
         ghost: "bg-transparent text-foreground hover:bg-muted",
-        destructive: "bg-destructive text-destructive-foreground hover:brightness-110"
+        destructive:
+          "bg-destructive text-destructive-foreground hover:brightness-110"
       },
       size: {
         default: "h-11 px-5",
@@ -29,7 +32,8 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
@@ -45,7 +49,11 @@ export function Button({
   const Comp = asChild ? Slot : "button";
 
   return (
-    <Comp className={cn(buttonVariants({ variant, size, className }))} type={type} {...props} />
+    <Comp
+      className={cn(buttonVariants({ variant, size, className }))}
+      type={type}
+      {...props}
+    />
   );
 }
 

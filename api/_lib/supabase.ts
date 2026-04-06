@@ -16,12 +16,16 @@ export function getSupabaseAdminClient() {
     return supabaseAdminClient;
   }
 
-  supabaseAdminClient = createClient(serverEnv.supabase.url, serverEnv.supabase.serviceRoleKey, {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false
+  supabaseAdminClient = createClient(
+    serverEnv.supabase.url,
+    serverEnv.supabase.serviceRoleKey,
+    {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false
+      }
     }
-  });
+  );
 
   return supabaseAdminClient;
 }

@@ -33,7 +33,9 @@ export function DropdownMenuItem({
   className,
   inset,
   ...props
-}: ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & { inset?: boolean }) {
+}: ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
+  inset?: boolean;
+}) {
   return (
     <DropdownMenuPrimitive.Item
       className={cn(
@@ -75,10 +77,16 @@ export function DropdownMenuLabel({
   className,
   inset,
   ...props
-}: ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & { inset?: boolean }) {
+}: ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & {
+  inset?: boolean;
+}) {
   return (
     <DropdownMenuPrimitive.Label
-      className={cn("px-3 py-2 text-xs font-medium text-muted-foreground", inset && "pl-8", className)}
+      className={cn(
+        "px-3 py-2 text-xs font-medium text-muted-foreground",
+        inset && "pl-8",
+        className
+      )}
       {...props}
     />
   );
@@ -88,7 +96,12 @@ export function DropdownMenuSeparator({
   className,
   ...props
 }: ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>) {
-  return <DropdownMenuPrimitive.Separator className={cn("my-1 h-px bg-border", className)} {...props} />;
+  return (
+    <DropdownMenuPrimitive.Separator
+      className={cn("my-1 h-px bg-border", className)}
+      {...props}
+    />
+  );
 }
 
 export function DropdownMenuSubTrigger({
@@ -96,7 +109,9 @@ export function DropdownMenuSubTrigger({
   inset,
   children,
   ...props
-}: ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> & { inset?: boolean }) {
+}: ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> & {
+  inset?: boolean;
+}) {
   return (
     <DropdownMenuPrimitive.SubTrigger
       className={cn(

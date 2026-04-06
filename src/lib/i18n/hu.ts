@@ -39,8 +39,7 @@ export const hu = {
   landing: {
     eyebrow: "Full-stack React kiinduló alap",
     title: "Gyors indulás valós auth, adatbázis és teszt réteggel.",
-    body:
-      "Ez a minta projekt már tartalmazza a tiszta SPA alapot, a Firebase alapú beléptetést, a Supabase-adatréteget, a Vercel API réteget és a kétnyelvű felületet.",
+    body: "Ez a minta projekt már tartalmazza a tiszta SPA alapot, a Firebase alapú beléptetést, a Supabase-adatréteget, a Vercel API réteget és a kétnyelvű felületet.",
     primaryCta: "Belépés és dashboard",
     secondaryCta: "Komponens bemutató",
     sectionTitle: "Demo blokkok adatbázisból",
@@ -97,22 +96,25 @@ export const hu = {
     demoAccountsTitle: "Demo fiókok",
     demoAccountsBody: "Mock módban ezekkel az adatokkal tudsz azonnal belépni.",
     realAuthTitle: "Valós Firebase auth",
-    realAuthBody: "Email+jelszó és Google belépés ugyanazon az auth rétegen keresztül működik.",
-    deviceSessionsHint: "A Firebase kliensoldali session eszközönként külön marad, ezért minden böngészőben külön belépés kezelhető.",
+    realAuthBody:
+      "Email+jelszó és Google belépés ugyanazon az auth rétegen keresztül működik.",
+    deviceSessionsHint:
+      "A Firebase kliensoldali session eszközönként külön marad, ezért minden böngészőben külön belépés kezelhető.",
     success: "Sikeres belépés.",
     invalidCredentials: "Hibás email vagy jelszó.",
     emailAlreadyInUse: "Ez az email cím már használatban van.",
     googlePopupClosed: "A Google belépési ablakot bezártad a folyamat előtt.",
     unexpectedError: "A belépés most nem sikerült. Próbáld meg újra.",
-    mockModeHint: "Mock mód aktív. Így backend és Firebase nélkül is végigpróbálható a teljes auth felület.",
+    mockModeHint:
+      "Mock mód aktív. Így backend és Firebase nélkül is végigpróbálható a teljes auth felület.",
     missingConfig: "Firebase környezet hiányzik, ezért mock mód aktív."
   },
   dashboard: {
     title: "Saját és megosztott elemek",
-    body:
-      "Publikus, belépett felhasználóknak látható és teljesen privát elemek kezelése ugyanazon a listán.",
+    body: "Publikus, belépett felhasználóknak látható és teljesen privát elemek kezelése ugyanazon a listán.",
     createTitle: "Új elem létrehozása",
-    createBody: "A mentés optimisztikusan történik, így a lista gyorsan reagál.",
+    createBody:
+      "A mentés optimisztikusan történik, így a lista gyorsan reagál.",
     emptyTitle: "Még nincs megjeleníthető elem",
     emptyBody: "Hozz létre egy új bejegyzést, vagy válts szűrőt.",
     myItems: "Saját elemek",
@@ -150,8 +152,7 @@ export const hu = {
   },
   components: {
     title: "Komponens bemutató",
-    body:
-      "Ez az oldal a vizuális rendszer első mintája: tipográfia, felületek, gombok, címkék és állapotok egy helyen.",
+    body: "Ez az oldal a vizuális rendszer első mintája: tipográfia, felületek, gombok, címkék és állapotok egy helyen.",
     pageEyebrow: "Design system alap",
     pageTitle: "Valós shadcn/ui showcase oldal",
     pageBody:
@@ -184,7 +185,8 @@ export const hu = {
     officialBody:
       "A hivatalos komponenslistából további minták is bekerültek ide, hogy a projekt ne csak néhány alap elemmel induljon.",
     accordionTitle: "Accordion",
-    accordionBody: "Összecsukható információs blokkok beállításokhoz, FAQ-hoz vagy részletekhez.",
+    accordionBody:
+      "Összecsukható információs blokkok beállításokhoz, FAQ-hoz vagy részletekhez.",
     accordionItemOne: "Mire jó ebben a starterben?",
     accordionItemOneBody:
       "Jó alap például beállítási panelekhez, gyakori kérdésekhez vagy dashboard részletekhez.",
@@ -195,7 +197,8 @@ export const hu = {
     accordionItemThreeBody:
       "Beállítások, súgó, landing FAQ és admin oldalak jó jelöltek rá.",
     alertTitle: "Alert",
-    alertBody: "Callout blokk figyelmeztetéshez, státuszhoz vagy fontos rendszerüzenethez.",
+    alertBody:
+      "Callout blokk figyelmeztetéshez, státuszhoz vagy fontos rendszerüzenethez.",
     alertSuccessTitle: "Előkészített frontend shell",
     alertSuccessBody:
       "A route, theme, i18n és auth állapot már külön rétegekben fut, ezért a következő fejlesztési lépések tisztábban építhetők rá.",
@@ -203,7 +206,8 @@ export const hu = {
     alertWarningBody:
       "A teljes backend, a CRUD műveletek és az éles jogosultsági logika a következő pontokban kerülnek rá.",
     tableTitle: "Table",
-    tableBody: "Egyszerű, reszponzív táblás megjelenítés listákhoz, admin nézethez vagy audit adatokhoz.",
+    tableBody:
+      "Egyszerű, reszponzív táblás megjelenítés listákhoz, admin nézethez vagy audit adatokhoz.",
     tableCaption: "Mintakészlet a jelenlegi frontend állapotból.",
     tableColName: "Elem",
     tableColStatus: "Állapot",
@@ -240,7 +244,8 @@ export const hu = {
   },
   state: {
     unauthorizedTitle: "Belépés szükséges",
-    unauthorizedBody: "Ehhez az oldalhoz előbb jelentkezz be a landing oldalon.",
+    unauthorizedBody:
+      "Ehhez az oldalhoz előbb jelentkezz be a landing oldalon.",
     notFoundTitle: "Ez az oldal nem található",
     notFoundBody: "Valószínűleg még nincs ehhez route kialakítva."
   },
@@ -250,7 +255,8 @@ export const hu = {
     displayNameLabel: "Megjelenített név",
     avatarLabel: "Avatar URL",
     avatarPlaceholder: "https://pelda.hu/avatar-kep",
-    avatarHint: "Adj meg URL-t, vagy hagyd üresen, és monogramos avatar lesz használva.",
+    avatarHint:
+      "Adj meg URL-t, vagy hagyd üresen, és monogramos avatar lesz használva.",
     languageLabel: "Felület nyelve",
     themeLabel: "Preferált téma",
     previewTitle: "Élő előnézet",

@@ -17,7 +17,7 @@ export function FormSubmitButton({
       disabled={pending || props.disabled}
       type={props.type ?? "submit"}
     >
-      {pending ? pendingLabel ?? children : children}
+      {pending ? (pendingLabel ?? children) : children}
     </Button>
   );
 }

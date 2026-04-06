@@ -14,7 +14,8 @@ export default defineConfig({
       manifest: {
         name: "uresalap",
         short_name: "uresalap",
-        description: "Full-stack starter built with React, Firebase Auth, Supabase and Vercel.",
+        description:
+          "Full-stack starter built with React, Firebase Auth, Supabase and Vercel.",
         theme_color: "#101828",
         background_color: "#f4f7f1",
         display: "standalone",

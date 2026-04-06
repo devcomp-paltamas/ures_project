@@ -4,7 +4,9 @@ const defaultBaseUrl = env.apiBaseUrl || "";
 
 async function parseJson<T>(response: Response) {
   if (!response.ok) {
-    const body = (await response.json().catch(() => null)) as { message?: string } | null;
+    const body = (await response.json().catch(() => null)) as {
+      message?: string;
+    } | null;
     throw new Error(body?.message ?? "Request failed");
   }
 
@@ -65,7 +67,10 @@ export async function httpPatch<TBody, TResponse>(
   return parseJson<TResponse>(response);
 }
 
-export async function httpDelete<TResponse>(path: string, bearerToken?: string | null) {
+export async function httpDelete<TResponse>(
+  path: string,
+  bearerToken?: string | null
+) {
   const response = await fetch(`${defaultBaseUrl}${path}`, {
     method: "DELETE",
     headers: bearerToken

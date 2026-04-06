@@ -5,7 +5,10 @@ import {
   useState,
   type ReactNode
 } from "react";
-import { readLanguagePreference, writeLanguagePreference } from "@/lib/browser-storage";
+import {
+  readLanguagePreference,
+  writeLanguagePreference
+} from "@/lib/browser-storage";
 import { getDictionary, translate } from "@/lib/i18n";
 import type { Locale } from "@/types/domain";
 import { useAuth } from "@/providers/auth-provider";

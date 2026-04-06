@@ -9,7 +9,10 @@ export function Progress({
 }: ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>) {
   return (
     <ProgressPrimitive.Root
-      className={cn("relative h-3 w-full overflow-hidden rounded-full bg-muted", className)}
+      className={cn(
+        "relative h-3 w-full overflow-hidden rounded-full bg-muted",
+        className
+      )}
       value={value}
       {...props}
     >

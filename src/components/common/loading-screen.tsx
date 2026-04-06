@@ -10,7 +10,9 @@ export function LoadingScreen() {
       <div className="glass-surface w-full max-w-3xl rounded-[2rem] border border-border/70 p-8">
         <AppLogo />
         <div className="mt-10 space-y-4">
-          <p className="text-sm text-muted-foreground">{t("common.loadingShell")}</p>
+          <p className="text-sm text-muted-foreground">
+            {t("common.loadingShell")}
+          </p>
           <Skeleton className="h-14 w-full rounded-3xl" />
           <div className="grid gap-4 md:grid-cols-2">
             <Skeleton className="h-40 rounded-[2rem]" />

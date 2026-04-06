@@ -1,7 +1,13 @@
 import { ArrowRight, Pin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useI18n } from "@/providers/i18n-provider";
 import type { ItemRecord } from "@/types/domain";
@@ -25,7 +31,9 @@ export function PublicFeed({
             <h2 className="mt-4 text-3xl font-semibold tracking-tight text-foreground">
               {t("landing.publicFeedTitle")}
             </h2>
-            <p className="mt-4 text-base leading-7 text-muted-foreground">{t("landing.publicFeedBody")}</p>
+            <p className="mt-4 text-base leading-7 text-muted-foreground">
+              {t("landing.publicFeedBody")}
+            </p>
           </div>
           <Button asChild className="rounded-full">
             <a href="#auth-panel">
@@ -41,7 +49,10 @@ export function PublicFeed({
                 <Skeleton className="h-52 rounded-[2rem]" key={index} />
               ))
             : items.map((item) => (
-                <Card className="border-border/70 bg-background/82" key={item.id}>
+                <Card
+                  className="border-border/70 bg-background/82"
+                  key={item.id}
+                >
                   <CardHeader>
                     <div className="flex items-center justify-between gap-2">
                       <Badge>{t("common.public")}</Badge>
@@ -53,14 +64,20 @@ export function PublicFeed({
                       ) : null}
                     </div>
                     <CardTitle className="text-xl">{item.title}</CardTitle>
-                    <CardDescription className="text-sm leading-6">{item.summary}</CardDescription>
+                    <CardDescription className="text-sm leading-6">
+                      {item.summary}
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3 pt-0">
                     <div className="text-sm text-muted-foreground">
-                      {t("items.publicOwnerLabel")}: <span className="font-medium text-foreground">{item.ownerId}</span>
+                      {t("items.publicOwnerLabel")}:{" "}
+                      <span className="font-medium text-foreground">
+                        {item.ownerId}
+                      </span>
                     </div>
                     <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">
-                      {t("items.publicUpdatedLabel")} {formatDate(item.updatedAt, locale)}
+                      {t("items.publicUpdatedLabel")}{" "}
+                      {formatDate(item.updatedAt, locale)}
                     </div>
                   </CardContent>
                 </Card>

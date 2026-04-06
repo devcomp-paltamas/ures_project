@@ -1,5 +1,11 @@
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 import { ItemFeed } from "@/components/items/item-feed";
 import { ProfilePreferencesPanel } from "@/components/preferences/profile-preferences-panel";
 import { useItemsQuery } from "@/hooks/use-items-query";
@@ -26,7 +32,9 @@ export function DashboardPage() {
       <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
         <Card className="border-border/70 bg-[#101828] text-white shadow-[0_24px_120px_rgba(16,24,40,0.24)]">
           <CardHeader>
-            <Badge className="w-fit bg-white/12 text-white">{t("dashboard.introCardTitle")}</Badge>
+            <Badge className="w-fit bg-white/12 text-white">
+              {t("dashboard.introCardTitle")}
+            </Badge>
             <CardTitle className="text-3xl">{session?.displayName}</CardTitle>
             <CardDescription className="max-w-2xl text-white/70">
               {t("dashboard.introCardBody")}
@@ -70,7 +78,9 @@ export function DashboardPage() {
 function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-[1.5rem] border border-white/10 bg-white/6 p-4">
-      <p className="text-xs uppercase tracking-[0.22em] text-white/56">{label}</p>
+      <p className="text-xs uppercase tracking-[0.22em] text-white/56">
+        {label}
+      </p>
       <p className="mt-3 text-lg font-semibold text-white">{value}</p>
     </div>
   );

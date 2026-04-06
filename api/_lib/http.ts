@@ -1,7 +1,11 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { ApiError, isApiError } from "./errors";
 
-export function sendJson(response: VercelResponse, statusCode: number, body: unknown) {
+export function sendJson(
+  response: VercelResponse,
+  statusCode: number,
+  body: unknown
+) {
   response.status(statusCode).json(body);
 }
 
@@ -49,7 +53,10 @@ export function readJsonBody<T>(request: VercelRequest): T {
   throw new ApiError(400, "Request body format is not supported.");
 }
 
-export function readRouteParam(value: string | string[] | undefined, name: string) {
+export function readRouteParam(
+  value: string | string[] | undefined,
+  name: string
+) {
   if (typeof value === "string" && value.trim()) {
     return value.trim();
   }
@@ -69,7 +76,8 @@ export async function withApiHandler(
       return;
     }
 
-    const message = error instanceof Error ? error.message : "Unexpected server error.";
+    const message =
+      error instanceof Error ? error.message : "Unexpected server error.";
     sendJson(response, 500, { message });
   }
 }

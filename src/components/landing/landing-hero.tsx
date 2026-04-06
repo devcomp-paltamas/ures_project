@@ -13,7 +13,9 @@ export function LandingHero() {
         <div className="animate-reveal-up relative overflow-hidden rounded-[2.5rem] border border-border/70 bg-[#101828] px-6 py-10 text-white shadow-[0_24px_120px_rgba(16,24,40,0.28)] sm:px-10 sm:py-14">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(245,211,106,0.18),transparent_26%),radial-gradient(circle_at_bottom_right,rgba(43,182,115,0.24),transparent_24%)]" />
           <div className="relative max-w-3xl">
-            <Badge className="bg-white/12 text-white hover:bg-white/12">{t("common.previewBadge")}</Badge>
+            <Badge className="bg-white/12 text-white hover:bg-white/12">
+              {t("common.previewBadge")}
+            </Badge>
             <div className="mt-6 flex items-start gap-4">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.36em] text-white/60">
@@ -29,13 +31,20 @@ export function LandingHero() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button asChild className="bg-white text-[#101828] hover:bg-white/90">
+              <Button
+                asChild
+                className="bg-white text-[#101828] hover:bg-white/90"
+              >
                 <a href="#auth-panel">
                   {t("landing.primaryCta")}
                   <ArrowRight className="h-4 w-4" />
                 </a>
               </Button>
-              <Button asChild variant="outline" className="border-white/20 bg-white/6 text-white hover:bg-white/10">
+              <Button
+                asChild
+                variant="outline"
+                className="border-white/20 bg-white/6 text-white hover:bg-white/10"
+              >
                 <Link to="/components">{t("landing.secondaryCta")}</Link>
               </Button>
             </div>
@@ -45,21 +54,33 @@ export function LandingHero() {
         <aside className="animate-reveal-up space-y-4 [animation-delay:120ms]">
           <div className="glass-surface animate-float-y rounded-[2.2rem] border border-border/70 p-6">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-semibold text-foreground">{t("landing.architectureTitle")}</span>
+              <span className="text-sm font-semibold text-foreground">
+                {t("landing.architectureTitle")}
+              </span>
               <Orbit className="h-5 w-5 text-primary" />
             </div>
-            <p className="mt-4 text-sm leading-6 text-muted-foreground">{t("landing.architectureBody")}</p>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">
+              {t("landing.architectureBody")}
+            </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
             <div className="rounded-[2rem] border border-border/70 bg-secondary/55 p-5">
               <ShieldCheck className="h-5 w-5 text-primary" />
-              <p className="mt-3 text-sm font-semibold text-foreground">{t("landing.stackTitle")}</p>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">{t("landing.stackBody")}</p>
+              <p className="mt-3 text-sm font-semibold text-foreground">
+                {t("landing.stackTitle")}
+              </p>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                {t("landing.stackBody")}
+              </p>
             </div>
             <div className="rounded-[2rem] border border-border/70 bg-accent/25 p-5">
               <Sparkles className="h-5 w-5 text-foreground" />
-              <p className="mt-3 text-sm font-semibold text-foreground">{t("landing.brandTitle")}</p>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">{t("landing.brandBody")}</p>
+              <p className="mt-3 text-sm font-semibold text-foreground">
+                {t("landing.brandTitle")}
+              </p>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                {t("landing.brandBody")}
+              </p>
             </div>
           </div>
         </aside>

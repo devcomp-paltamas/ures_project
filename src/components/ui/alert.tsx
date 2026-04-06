@@ -23,13 +23,35 @@ export function Alert({
   variant,
   ...props
 }: HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>) {
-  return <div className={cn(alertVariants({ variant }), className)} role="alert" {...props} />;
+  return (
+    <div
+      className={cn(alertVariants({ variant }), className)}
+      role="alert"
+      {...props}
+    />
+  );
 }
 
-export function AlertTitle({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) {
-  return <h5 className={cn("font-semibold leading-none tracking-tight", className)} {...props} />;
+export function AlertTitle({
+  className,
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h5
+      className={cn("font-semibold leading-none tracking-tight", className)}
+      {...props}
+    />
+  );
 }
 
-export function AlertDescription({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("text-sm leading-6 text-muted-foreground", className)} {...props} />;
+export function AlertDescription({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={cn("text-sm leading-6 text-muted-foreground", className)}
+      {...props}
+    />
+  );
 }

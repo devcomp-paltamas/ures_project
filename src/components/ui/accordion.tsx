@@ -13,7 +13,12 @@ export function AccordionItem({
   className,
   ...props
 }: ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>) {
-  return <AccordionPrimitive.Item className={cn("border-b border-border/80", className)} {...props} />;
+  return (
+    <AccordionPrimitive.Item
+      className={cn("border-b border-border/80", className)}
+      {...props}
+    />
+  );
 }
 
 export function AccordionTrigger({
@@ -44,7 +49,10 @@ export function AccordionContent({
 }: ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>) {
   return (
     <AccordionPrimitive.Content
-      className={cn("overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down", className)}
+      className={cn(
+        "overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
+        className
+      )}
       {...props}
     >
       <div className="pb-4 pt-0 text-muted-foreground">{children}</div>

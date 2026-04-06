@@ -1,4 +1,11 @@
-import { Globe, LayoutTemplate, LogOut, Monitor, MoonStar, SunMedium } from "lucide-react";
+import {
+  Globe,
+  LayoutTemplate,
+  LogOut,
+  Monitor,
+  MoonStar,
+  SunMedium
+} from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import { startTransition, useOptimistic } from "react";
 import { AppLogo } from "@/components/common/app-logo";
@@ -41,8 +48,14 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
   const { isAuthenticated, session, signOut, updateSession } = useAuth();
   const { locale, setLocale, t } = useI18n();
   const { theme, setTheme } = useTheme();
-  const [optimisticLocale, setOptimisticLocale] = useOptimistic(locale, (_, next: Locale) => next);
-  const [optimisticTheme, setOptimisticTheme] = useOptimistic(theme, (_, next: ThemeMode) => next);
+  const [optimisticLocale, setOptimisticLocale] = useOptimistic(
+    locale,
+    (_, next: Locale) => next
+  );
+  const [optimisticTheme, setOptimisticTheme] = useOptimistic(
+    theme,
+    (_, next: ThemeMode) => next
+  );
 
   function handleLocaleChange(nextLocale: Locale) {
     startTransition(() => {
@@ -69,7 +82,9 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
       <div className="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
         <div className="glass-surface flex items-center justify-between rounded-[2rem] border border-border/70 px-4 py-3 sm:px-5">
           <Link to="/" className="shrink-0">
-            <AppLogo className={compact ? "scale-[0.92] origin-left" : undefined} />
+            <AppLogo
+              className={compact ? "scale-[0.92] origin-left" : undefined}
+            />
           </Link>
           <nav className="hidden items-center gap-2 md:flex">
             {navigation.map((item) => (
@@ -92,7 +107,9 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="rounded-full">
                   <Globe className="h-4 w-4" />
-                  <span className="hidden sm:inline">{getLocaleLabel(locale, optimisticLocale)}</span>
+                  <span className="hidden sm:inline">
+                    {getLocaleLabel(locale, optimisticLocale)}
+                  </span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
@@ -110,7 +127,9 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="rounded-full">
                   <ThemeIcon theme={optimisticTheme} />
-                  <span className="hidden sm:inline">{getThemeLabel(locale, optimisticTheme)}</span>
+                  <span className="hidden sm:inline">
+                    {getThemeLabel(locale, optimisticTheme)}
+                  </span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
@@ -133,8 +152,15 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
             {isAuthenticated && session ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="h-11 rounded-full px-2">
-                    <UserAvatar avatarUrl={session.avatarUrl} name={session.displayName} />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-11 rounded-full px-2"
+                  >
+                    <UserAvatar
+                      avatarUrl={session.avatarUrl}
+                      name={session.displayName}
+                    />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">

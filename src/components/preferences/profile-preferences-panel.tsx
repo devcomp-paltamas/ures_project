@@ -1,19 +1,41 @@
-import { startTransition, useActionState, useOptimistic, useState } from "react";
+import {
+  startTransition,
+  useActionState,
+  useOptimistic,
+  useState
+} from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { FormSubmitButton } from "@/components/common/form-submit-button";
 import { UserAvatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@/providers/auth-provider";
 import { useI18n } from "@/providers/i18n-provider";
 import { updateProfilePreferences } from "@/features/preferences/preferences-service";
 import { getLocaleLabel, getThemeLabel } from "@/lib/i18n/helpers";
-import type { AppPreferenceInput, Locale, ProfileRecord, ThemeMode } from "@/types/domain";
+import type {
+  AppPreferenceInput,
+  Locale,
+  ProfileRecord,
+  ThemeMode
+} from "@/types/domain";
 
 interface ProfilePreferencesPanelProps {
   bearerToken: string | null;
@@ -31,7 +53,10 @@ const initialActionState: ProfileActionState = {
   message: null
 };
 
-function createDraft(profile: ProfileRecord | null, fallback: NonNullable<ProfilePreferencesPanelProps["profile"]>) {
+function createDraft(
+  profile: ProfileRecord | null,
+  fallback: NonNullable<ProfilePreferencesPanelProps["profile"]>
+) {
   return {
     displayName: profile?.displayName ?? fallback.displayName,
     avatarUrl: profile?.avatarUrl ?? fallback.avatarUrl ?? "",
@@ -90,7 +115,9 @@ export function ProfilePreferencesPanel({
       fallbackProfile={fallbackProfile}
       key={`${fallbackProfile.userId}:${profile?.updatedAt ?? "initial"}`}
       onProfileSaved={(nextProfile) => {
-        queryClient.setQueryData(["profile", bearerToken], { profile: nextProfile });
+        queryClient.setQueryData(["profile", bearerToken], {
+          profile: nextProfile
+        });
         startTransition(() => {
           updateSession({
             avatarUrl: nextProfile.avatarUrl,
@@ -114,7 +141,9 @@ function ProfilePreferencesForm({
   onProfileSaved: (nextProfile: ProfileRecord) => void;
 }) {
   const { locale, t } = useI18n();
-  const [draft, setDraft] = useState(() => createDraft(fallbackProfile, fallbackProfile));
+  const [draft, setDraft] = useState(() =>
+    createDraft(fallbackProfile, fallbackProfile)
+  );
   const [optimisticDraft, setOptimisticDraft] = useOptimistic(
     draft,
     (_current, next: typeof draft) => next
@@ -126,31 +155,34 @@ function ProfilePreferencesForm({
     setOptimisticDraft(updated);
   }
 
-  const [state, submitAction] = useActionState<ProfileActionState, FormData>(async () => {
-    const payload: AppPreferenceInput = {
-      displayName: draft.displayName.trim(),
-      avatarUrl: draft.avatarUrl.trim() || null,
-      language: draft.language,
-      theme: draft.theme
-    };
-
-    try {
-      const result = await updateProfilePreferences(bearerToken, payload);
-      onProfileSaved(result.profile);
-      toast.success(t("preferences.updated"));
-
-      return {
-        status: "success",
-        message: t("preferences.updated")
+  const [state, submitAction] = useActionState<ProfileActionState, FormData>(
+    async () => {
+      const payload: AppPreferenceInput = {
+        displayName: draft.displayName.trim(),
+        avatarUrl: draft.avatarUrl.trim() || null,
+        language: draft.language,
+        theme: draft.theme
       };
-    } catch {
-      toast.error(t("preferences.error"));
-      return {
-        status: "error",
-        message: t("preferences.error")
-      };
-    }
-  }, initialActionState);
+
+      try {
+        const result = await updateProfilePreferences(bearerToken, payload);
+        onProfileSaved(result.profile);
+        toast.success(t("preferences.updated"));
+
+        return {
+          status: "success",
+          message: t("preferences.updated")
+        };
+      } catch {
+        toast.error(t("preferences.error"));
+        return {
+          status: "error",
+          message: t("preferences.error")
+        };
+      }
+    },
+    initialActionState
+  );
 
   return (
     <Card className="border-border/70 bg-background/82">
@@ -174,23 +206,33 @@ function ProfilePreferencesForm({
               <p className="text-lg font-semibold text-foreground">
                 {optimisticDraft.displayName || fallbackProfile.displayName}
               </p>
-              <p className="text-sm text-muted-foreground">{fallbackProfile.email}</p>
+              <p className="text-sm text-muted-foreground">
+                {fallbackProfile.email}
+              </p>
             </div>
           </div>
           <div className="mt-5 flex flex-wrap gap-2">
             <Badge>{getLocaleLabel(locale, optimisticDraft.language)}</Badge>
-            <Badge variant="outline">{getThemeLabel(locale, optimisticDraft.theme)}</Badge>
+            <Badge variant="outline">
+              {getThemeLabel(locale, optimisticDraft.theme)}
+            </Badge>
           </div>
-          <p className="mt-5 text-sm leading-6 text-muted-foreground">{t("preferences.previewBody")}</p>
+          <p className="mt-5 text-sm leading-6 text-muted-foreground">
+            {t("preferences.previewBody")}
+          </p>
         </div>
 
         <form action={submitAction} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="displayName">{t("preferences.displayNameLabel")}</Label>
+            <Label htmlFor="displayName">
+              {t("preferences.displayNameLabel")}
+            </Label>
             <Input
               id="displayName"
               name="displayName"
-              onChange={(event) => patchDraft({ displayName: event.target.value })}
+              onChange={(event) =>
+                patchDraft({ displayName: event.target.value })
+              }
               value={draft.displayName}
             />
           </div>
@@ -200,26 +242,36 @@ function ProfilePreferencesForm({
             <Input
               id="avatarUrl"
               name="avatarUrl"
-              onChange={(event) => patchDraft({ avatarUrl: event.target.value })}
+              onChange={(event) =>
+                patchDraft({ avatarUrl: event.target.value })
+              }
               placeholder={t("preferences.avatarPlaceholder")}
               value={draft.avatarUrl}
             />
-            <p className="text-sm text-muted-foreground">{t("preferences.avatarHint")}</p>
+            <p className="text-sm text-muted-foreground">
+              {t("preferences.avatarHint")}
+            </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="language">{t("preferences.languageLabel")}</Label>
               <Select
-                onValueChange={(value) => patchDraft({ language: value as Locale })}
+                onValueChange={(value) =>
+                  patchDraft({ language: value as Locale })
+                }
                 value={draft.language}
               >
                 <SelectTrigger id="language">
                   <SelectValue placeholder={t("common.language")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="hu">{getLocaleLabel(locale, "hu")}</SelectItem>
-                  <SelectItem value="en">{getLocaleLabel(locale, "en")}</SelectItem>
+                  <SelectItem value="hu">
+                    {getLocaleLabel(locale, "hu")}
+                  </SelectItem>
+                  <SelectItem value="en">
+                    {getLocaleLabel(locale, "en")}
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -227,28 +279,45 @@ function ProfilePreferencesForm({
             <div className="space-y-2">
               <Label htmlFor="theme">{t("preferences.themeLabel")}</Label>
               <Select
-                onValueChange={(value) => patchDraft({ theme: value as ThemeMode })}
+                onValueChange={(value) =>
+                  patchDraft({ theme: value as ThemeMode })
+                }
                 value={draft.theme}
               >
                 <SelectTrigger id="theme">
                   <SelectValue placeholder={t("common.theme")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="light">{getThemeLabel(locale, "light")}</SelectItem>
-                  <SelectItem value="dark">{getThemeLabel(locale, "dark")}</SelectItem>
-                  <SelectItem value="system">{getThemeLabel(locale, "system")}</SelectItem>
+                  <SelectItem value="light">
+                    {getThemeLabel(locale, "light")}
+                  </SelectItem>
+                  <SelectItem value="dark">
+                    {getThemeLabel(locale, "dark")}
+                  </SelectItem>
+                  <SelectItem value="system">
+                    {getThemeLabel(locale, "system")}
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
           {state.message ? (
-            <p className={state.status === "error" ? "text-sm text-destructive" : "text-sm text-primary"}>
+            <p
+              className={
+                state.status === "error"
+                  ? "text-sm text-destructive"
+                  : "text-sm text-primary"
+              }
+            >
               {state.message}
             </p>
           ) : null}
 
-          <FormSubmitButton className="w-full sm:w-auto" pendingLabel={t("common.saving")}>
+          <FormSubmitButton
+            className="w-full sm:w-auto"
+            pendingLabel={t("common.saving")}
+          >
             {t("preferences.submit")}
           </FormSubmitButton>
         </form>

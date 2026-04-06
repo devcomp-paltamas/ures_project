@@ -7,7 +7,9 @@ describe("ComponentsPage", () => {
   it("renderel es lebonthato hiba nelkul", async () => {
     const view = renderWithProviders(<ComponentsPage />, "/components");
 
-    expect(Boolean(await screen.findByText("Valós shadcn/ui showcase oldal"))).toBe(true);
+    expect(
+      Boolean(await screen.findByText("Valós shadcn/ui showcase oldal"))
+    ).toBe(true);
     expect(screen.getAllByText("Accordion").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Checkbox").length).toBeGreaterThan(0);
 

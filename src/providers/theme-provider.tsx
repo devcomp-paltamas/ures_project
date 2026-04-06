@@ -5,7 +5,10 @@ import {
   useState,
   type ReactNode
 } from "react";
-import { readThemePreference, writeThemePreference } from "@/lib/browser-storage";
+import {
+  readThemePreference,
+  writeThemePreference
+} from "@/lib/browser-storage";
 import type { ThemeMode } from "@/types/domain";
 import { useAuth } from "@/providers/auth-provider";
 
@@ -58,7 +61,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setTheme: setThemeState
   };
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  return (
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+  );
 }
 
 export function useTheme() {

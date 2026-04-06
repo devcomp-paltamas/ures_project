@@ -55,7 +55,10 @@ function getStore() {
   return globalThis.__uresalapApiStore;
 }
 
-function createSession(profile: ProfileRecord, provider: AuthProvider): UserSession {
+function createSession(
+  profile: ProfileRecord,
+  provider: AuthProvider
+): UserSession {
   return {
     id: profile.userId,
     email: profile.email,
@@ -67,7 +70,10 @@ function createSession(profile: ProfileRecord, provider: AuthProvider): UserSess
   };
 }
 
-function getAccessibleItems(database: DemoDatabaseShape, session: UserSession | null) {
+function getAccessibleItems(
+  database: DemoDatabaseShape,
+  session: UserSession | null
+) {
   return database.items.filter((item) => {
     if (item.visibility === "public") {
       return true;
@@ -120,7 +126,9 @@ export function getSessionByDemoBearerToken(bearerToken: string | null) {
     return null;
   }
 
-  const profile = database.profiles.find((entry) => entry.userId === session.id);
+  const profile = database.profiles.find(
+    (entry) => entry.userId === session.id
+  );
   if (!profile) {
     return session;
   }
@@ -137,13 +145,17 @@ export function getAuthResultForDemoToken(idToken: string) {
   return {
     session,
     bearerToken:
-      session.provider === "google" ? "demo-google-token" : appConfig.mockBearerToken
+      session.provider === "google"
+        ? "demo-google-token"
+        : appConfig.mockBearerToken
   };
 }
 
 export function ensureProfileSession(identity: AuthIdentity) {
   const store = getStore();
-  let profile = store.database.profiles.find((entry) => entry.userId === identity.id);
+  let profile = store.database.profiles.find(
+    (entry) => entry.userId === identity.id
+  );
   const now = new Date().toISOString();
 
   if (!profile) {
@@ -178,7 +190,9 @@ export function listItemsForSession(session: UserSession | null) {
 
 export function getProfileForSession(session: UserSession) {
   const { database } = getStore();
-  const profile = database.profiles.find((entry) => entry.userId === session.id);
+  const profile = database.profiles.find(
+    (entry) => entry.userId === session.id
+  );
   if (!profile) {
     throw new ApiError(404, "Profile not found.");
   }
@@ -186,9 +200,14 @@ export function getProfileForSession(session: UserSession) {
   return { profile };
 }
 
-export function updateProfileForSession(session: UserSession, input: AppPreferenceInput) {
+export function updateProfileForSession(
+  session: UserSession,
+  input: AppPreferenceInput
+) {
   const store = getStore();
-  const profile = store.database.profiles.find((entry) => entry.userId === session.id);
+  const profile = store.database.profiles.find(
+    (entry) => entry.userId === session.id
+  );
   if (!profile) {
     throw new ApiError(404, "Profile not found.");
   }
@@ -220,7 +239,11 @@ export function createItemForSession(session: UserSession, input: ItemInput) {
   return item;
 }
 
-export function updateItemForSession(session: UserSession, itemId: string, input: ItemInput) {
+export function updateItemForSession(
+  session: UserSession,
+  itemId: string,
+  input: ItemInput
+) {
   const { database } = getStore();
   const item = requireOwner(
     database.items.find((entry) => entry.id === itemId),

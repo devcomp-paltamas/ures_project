@@ -111,7 +111,10 @@ import { useMemo, useState } from "react";
 function TodoList({ todos, filter }) {
   const [newTodo, setNewTodo] = useState("");
   // ✅ Does not re-run getFilteredTodos() unless todos or filter change
-  const visibleTodos = useMemo(() => getFilteredTodos(todos, filter), [todos, filter]);
+  const visibleTodos = useMemo(
+    () => getFilteredTodos(todos, filter),
+    [todos, filter]
+  );
   // ...
 }
 ```
@@ -642,7 +645,7 @@ function useOnlineStatus() {
   return useSyncExternalStore(
     subscribe, // React won't resubscribe for as long as you pass the same function
     () => navigator.onLine, // How to get the value on the client
-    () => true, // How to get the value on the server
+    () => true // How to get the value on the server
   );
 }
 

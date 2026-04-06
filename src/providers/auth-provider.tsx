@@ -24,7 +24,11 @@ interface AuthContextValue {
   isAuthenticated: boolean;
   isReady: boolean;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, displayName: string) => Promise<void>;
+  signUp: (
+    email: string,
+    password: string,
+    displayName: string
+  ) => Promise<void>;
   signInGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
   updateSession: (next: Partial<UserSession>) => void;
@@ -34,7 +38,9 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [authState, setAuthState] = useState<AuthStateSnapshot>(() => getInitialAuthState());
+  const [authState, setAuthState] = useState<AuthStateSnapshot>(() =>
+    getInitialAuthState()
+  );
 
   useEffect(() => {
     return subscribeToAuthState((nextState) => {
@@ -51,7 +57,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
   }
 
-  async function handlePasswordSignUp(email: string, password: string, displayName: string) {
+  async function handlePasswordSignUp(
+    email: string,
+    password: string,
+    displayName: string
+  ) {
     const result = await signUpWithPassword(email, password, displayName);
     setAuthState({
       session: result.session,

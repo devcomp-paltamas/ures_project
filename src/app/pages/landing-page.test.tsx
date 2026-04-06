@@ -20,9 +20,19 @@ describe("LandingPage", () => {
     window.localStorage.removeItem(storageKeys.language);
     renderWithProviders(<LandingPage />);
 
-    expect(Boolean(await screen.findByText("Gyors indulás valós auth, adatbázis és teszt réteggel."))).toBe(true);
-    expect(screen.getAllByText("Belépés ugyanerről az oldalról").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Publikus minták adatbázisból").length).toBeGreaterThan(0);
+    expect(
+      Boolean(
+        await screen.findByText(
+          "Gyors indulás valós auth, adatbázis és teszt réteggel."
+        )
+      )
+    ).toBe(true);
+    expect(
+      screen.getAllByText("Belépés ugyanerről az oldalról").length
+    ).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText("Publikus minták adatbázisból").length
+    ).toBeGreaterThan(0);
     expect(screen.getByText("Public release message")).toBeTruthy();
     expect(screen.getAllByText("Komponens bemutató").length).toBeGreaterThan(0);
   });
@@ -32,10 +42,18 @@ describe("LandingPage", () => {
 
     renderWithProviders(<LandingPage />);
 
-    expect(Boolean(await screen.findByText("Start fast with real auth, database and test layers."))).toBe(
-      true
-    );
-    expect(screen.getAllByText("Sign in directly from the landing page").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Public examples from the database").length).toBeGreaterThan(0);
+    expect(
+      Boolean(
+        await screen.findByText(
+          "Start fast with real auth, database and test layers."
+        )
+      )
+    ).toBe(true);
+    expect(
+      screen.getAllByText("Sign in directly from the landing page").length
+    ).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText("Public examples from the database").length
+    ).toBeGreaterThan(0);
   });
 });

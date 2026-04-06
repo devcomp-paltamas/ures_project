@@ -81,7 +81,10 @@ function requireSupabase() {
   return client;
 }
 
-function handleSupabaseError(error: PostgrestError | null, fallbackMessage: string) {
+function handleSupabaseError(
+  error: PostgrestError | null,
+  fallbackMessage: string
+) {
   if (!error) {
     return;
   }
@@ -142,7 +145,10 @@ function mapLandingBlock(row: LandingBlockRow): LandingBlock {
   };
 }
 
-function getProfileUpsertPayload(identity: AuthIdentity, existing: ProfileRow | null) {
+function getProfileUpsertPayload(
+  identity: AuthIdentity,
+  existing: ProfileRow | null
+) {
   return {
     user_id: identity.id,
     email: identity.email,
@@ -161,7 +167,9 @@ export async function ensureProfileSession(identity: AuthIdentity) {
   const supabase = requireSupabase();
   const { data: existingProfile, error: profileError } = await supabase
     .from("profiles")
-    .select("user_id, email, display_name, avatar_url, language, theme, created_at, updated_at")
+    .select(
+      "user_id, email, display_name, avatar_url, language, theme, created_at, updated_at"
+    )
     .eq("user_id", identity.id)
     .maybeSingle<ProfileRow>();
 
@@ -171,7 +179,9 @@ export async function ensureProfileSession(identity: AuthIdentity) {
   const { data: upsertedProfile, error: upsertError } = await supabase
     .from("profiles")
     .upsert(payload, { onConflict: "user_id" })
-    .select("user_id, email, display_name, avatar_url, language, theme, created_at, updated_at")
+    .select(
+      "user_id, email, display_name, avatar_url, language, theme, created_at, updated_at"
+    )
     .single<ProfileRow>();
 
   handleSupabaseError(upsertError, "Failed to upsert profile");
@@ -184,21 +194,27 @@ export async function getBootstrapPayload() {
   }
 
   const supabase = requireSupabase();
-  const [{ data: landingRows, error: landingError }, { data: itemRows, error: itemError }] =
-    await Promise.all([
-      supabase
-        .from("landing_blocks")
-        .select("id, slug, eyebrow, title, body, tone, cta_label, cta_href, is_published, created_at")
-        .eq("is_published", true)
-        .order("created_at", { ascending: true })
-        .returns<LandingBlockRow[]>(),
-      supabase
-        .from("items")
-        .select("id, owner_id, title, summary, visibility, is_pinned, created_at, updated_at")
-        .eq("visibility", "public")
-        .order("updated_at", { ascending: false })
-        .returns<ItemRow[]>()
-    ]);
+  const [
+    { data: landingRows, error: landingError },
+    { data: itemRows, error: itemError }
+  ] = await Promise.all([
+    supabase
+      .from("landing_blocks")
+      .select(
+        "id, slug, eyebrow, title, body, tone, cta_label, cta_href, is_published, created_at"
+      )
+      .eq("is_published", true)
+      .order("created_at", { ascending: true })
+      .returns<LandingBlockRow[]>(),
+    supabase
+      .from("items")
+      .select(
+        "id, owner_id, title, summary, visibility, is_pinned, created_at, updated_at"
+      )
+      .eq("visibility", "public")
+      .order("updated_at", { ascending: false })
+      .returns<ItemRow[]>()
+  ]);
 
   handleSupabaseError(landingError, "Failed to load landing blocks");
   handleSupabaseError(itemError, "Failed to load public items");
@@ -217,11 +233,15 @@ export async function listItemsForSession(session: UserSession | null) {
   const supabase = requireSupabase();
   const baseQuery = supabase
     .from("items")
-    .select("id, owner_id, title, summary, visibility, is_pinned, created_at, updated_at")
+    .select(
+      "id, owner_id, title, summary, visibility, is_pinned, created_at, updated_at"
+    )
     .order("updated_at", { ascending: false });
 
   if (!session) {
-    const { data, error } = await baseQuery.eq("visibility", "public").returns<ItemRow[]>();
+    const { data, error } = await baseQuery
+      .eq("visibility", "public")
+      .returns<ItemRow[]>();
     handleSupabaseError(error, "Failed to list public items");
     return { items: (data ?? []).map(mapItem) };
   }
@@ -242,7 +262,9 @@ export async function getProfileForSession(session: UserSession) {
   const supabase = requireSupabase();
   const { data, error } = await supabase
     .from("profiles")
-    .select("user_id, email, display_name, avatar_url, language, theme, created_at, updated_at")
+    .select(
+      "user_id, email, display_name, avatar_url, language, theme, created_at, updated_at"
+    )
     .eq("user_id", session.id)
     .single<ProfileRow>();
 
@@ -254,7 +276,10 @@ export async function getProfileForSession(session: UserSession) {
   return { profile: mapProfile(data) };
 }
 
-export async function updateProfileForSession(session: UserSession, input: AppPreferenceInput) {
+export async function updateProfileForSession(
+  session: UserSession,
+  input: AppPreferenceInput
+) {
   if (shouldUseDemoRepository()) {
     return updateDemoProfileForSession(session, input);
   }
@@ -269,7 +294,9 @@ export async function updateProfileForSession(session: UserSession, input: AppPr
       theme: input.theme
     })
     .eq("user_id", session.id)
-    .select("user_id, email, display_name, avatar_url, language, theme, created_at, updated_at")
+    .select(
+      "user_id, email, display_name, avatar_url, language, theme, created_at, updated_at"
+    )
     .single<ProfileRow>();
 
   if (error?.code === "PGRST116") {
@@ -280,7 +307,10 @@ export async function updateProfileForSession(session: UserSession, input: AppPr
   return { profile: mapProfile(data) };
 }
 
-export async function createItemForSession(session: UserSession, input: ItemInput) {
+export async function createItemForSession(
+  session: UserSession,
+  input: ItemInput
+) {
   if (shouldUseDemoRepository()) {
     return createDemoItemForSession(session, input);
   }
@@ -295,7 +325,9 @@ export async function createItemForSession(session: UserSession, input: ItemInpu
       visibility: input.visibility,
       is_pinned: input.isPinned
     })
-    .select("id, owner_id, title, summary, visibility, is_pinned, created_at, updated_at")
+    .select(
+      "id, owner_id, title, summary, visibility, is_pinned, created_at, updated_at"
+    )
     .single<ItemRow>();
 
   handleSupabaseError(error, "Failed to create item");
@@ -306,7 +338,9 @@ async function getExistingItem(itemId: string) {
   const supabase = requireSupabase();
   const { data, error } = await supabase
     .from("items")
-    .select("id, owner_id, title, summary, visibility, is_pinned, created_at, updated_at")
+    .select(
+      "id, owner_id, title, summary, visibility, is_pinned, created_at, updated_at"
+    )
     .eq("id", itemId)
     .maybeSingle<ItemRow>();
 
@@ -314,7 +348,11 @@ async function getExistingItem(itemId: string) {
   return data;
 }
 
-export async function updateItemForSession(session: UserSession, itemId: string, input: ItemInput) {
+export async function updateItemForSession(
+  session: UserSession,
+  itemId: string,
+  input: ItemInput
+) {
   if (shouldUseDemoRepository()) {
     return updateDemoItemForSession(session, itemId, input);
   }
@@ -339,14 +377,19 @@ export async function updateItemForSession(session: UserSession, itemId: string,
     })
     .eq("id", itemId)
     .eq("owner_id", session.id)
-    .select("id, owner_id, title, summary, visibility, is_pinned, created_at, updated_at")
+    .select(
+      "id, owner_id, title, summary, visibility, is_pinned, created_at, updated_at"
+    )
     .single<ItemRow>();
 
   handleSupabaseError(error, "Failed to update item");
   return mapItem(data);
 }
 
-export async function deleteItemForSession(session: UserSession, itemId: string) {
+export async function deleteItemForSession(
+  session: UserSession,
+  itemId: string
+) {
   if (shouldUseDemoRepository()) {
     return deleteDemoItemForSession(session, itemId);
   }
@@ -361,7 +404,11 @@ export async function deleteItemForSession(session: UserSession, itemId: string)
   }
 
   const supabase = requireSupabase();
-  const { error } = await supabase.from("items").delete().eq("id", itemId).eq("owner_id", session.id);
+  const { error } = await supabase
+    .from("items")
+    .delete()
+    .eq("id", itemId)
+    .eq("owner_id", session.id);
   handleSupabaseError(error, "Failed to delete item");
   return { id: itemId };
 }

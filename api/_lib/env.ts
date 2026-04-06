@@ -28,7 +28,7 @@ export const serverEnv = {
 export function isFirebaseAdminConfigured() {
   return Boolean(
     serverEnv.firebaseAdmin.projectId &&
-      serverEnv.firebaseAdmin.clientEmail &&
-      serverEnv.firebaseAdmin.privateKey
+    serverEnv.firebaseAdmin.clientEmail &&
+    serverEnv.firebaseAdmin.privateKey
   );
 }

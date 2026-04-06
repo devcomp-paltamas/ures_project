@@ -39,8 +39,7 @@ export const en = {
   landing: {
     eyebrow: "Full-stack React starter",
     title: "Start fast with real auth, database and test layers.",
-    body:
-      "This sample project already includes a clean SPA foundation, Firebase-powered authentication, a Supabase data layer, Vercel API endpoints and bilingual UI.",
+    body: "This sample project already includes a clean SPA foundation, Firebase-powered authentication, a Supabase data layer, Vercel API endpoints and bilingual UI.",
     primaryCta: "Sign in and open dashboard",
     secondaryCta: "Open component showcase",
     sectionTitle: "Database-backed demo blocks",
@@ -56,7 +55,8 @@ export const en = {
     architectureBody:
       "Routes, providers and layouts live in separate layers so later business logic does not leak into visual structure.",
     stackTitle: "Firebase + token shell",
-    stackBody: "Email, password, Google and bearer-token paths are isolated in their own layer.",
+    stackBody:
+      "Email, password, Google and bearer-token paths are isolated in their own layer.",
     brandTitle: "Brand-ready visual base",
     brandBody:
       "The current layout is a strong starting point, but it can later be replaced cleanly with a real brand system.",
@@ -95,22 +95,26 @@ export const en = {
     switchActionSignUp: "Create one",
     switchActionSignIn: "Sign in",
     demoAccountsTitle: "Demo accounts",
-    demoAccountsBody: "In mock mode you can sign in instantly with these credentials.",
+    demoAccountsBody:
+      "In mock mode you can sign in instantly with these credentials.",
     realAuthTitle: "Real Firebase auth",
-    realAuthBody: "Email/password and Google sign-in run through the same auth layer.",
-    deviceSessionsHint: "Firebase keeps client sessions separate per device, so each browser can stay signed in independently.",
+    realAuthBody:
+      "Email/password and Google sign-in run through the same auth layer.",
+    deviceSessionsHint:
+      "Firebase keeps client sessions separate per device, so each browser can stay signed in independently.",
     success: "Sign-in successful.",
     invalidCredentials: "Invalid email or password.",
     emailAlreadyInUse: "This email address is already in use.",
-    googlePopupClosed: "The Google sign-in window was closed before completion.",
+    googlePopupClosed:
+      "The Google sign-in window was closed before completion.",
     unexpectedError: "Sign-in failed. Please try again.",
-    mockModeHint: "Mock mode is active, so the full auth UI can be tested even without backend and Firebase.",
+    mockModeHint:
+      "Mock mode is active, so the full auth UI can be tested even without backend and Firebase.",
     missingConfig: "Firebase environment is missing, mock mode is active."
   },
   dashboard: {
     title: "Own and shared items",
-    body:
-      "Manage public, signed-in-only and fully private items from the same workspace.",
+    body: "Manage public, signed-in-only and fully private items from the same workspace.",
     createTitle: "Create a new item",
     createBody: "Saving is optimistic so the list reacts immediately.",
     emptyTitle: "No visible items yet",
@@ -128,7 +132,8 @@ export const en = {
     filterShared: "Shared",
     filterPublic: "Public",
     metricSession: "Session",
-    profileNote: "Profile editing and persistence will be added in the next step."
+    profileNote:
+      "Profile editing and persistence will be added in the next step."
   },
   items: {
     titleLabel: "Title",
@@ -150,8 +155,7 @@ export const en = {
   },
   components: {
     title: "Component showcase",
-    body:
-      "This page is the first visual sample of the design language: typography, surfaces, buttons, badges and states in one place.",
+    body: "This page is the first visual sample of the design language: typography, surfaces, buttons, badges and states in one place.",
     pageEyebrow: "Design system base",
     pageTitle: "A real shadcn/ui showcase page",
     pageBody:
@@ -184,7 +188,8 @@ export const en = {
     officialBody:
       "Additional examples from the official component list are included here so the project does not start with only a handful of primitives.",
     accordionTitle: "Accordion",
-    accordionBody: "Collapsible content blocks for settings, FAQs or progressive details.",
+    accordionBody:
+      "Collapsible content blocks for settings, FAQs or progressive details.",
     accordionItemOne: "Why is it useful in this starter?",
     accordionItemOneBody:
       "It is a strong base for settings panels, FAQ content and expandable dashboard details.",
@@ -195,7 +200,8 @@ export const en = {
     accordionItemThreeBody:
       "Settings, help content, landing FAQs and admin screens are all good candidates.",
     alertTitle: "Alert",
-    alertBody: "Callout block for warnings, status messages or important system notes.",
+    alertBody:
+      "Callout block for warnings, status messages or important system notes.",
     alertSuccessTitle: "Frontend shell is prepared",
     alertSuccessBody:
       "Route handling, theme, i18n and auth state already live in separate layers, so the next implementation steps can build on them cleanly.",
@@ -203,7 +209,8 @@ export const en = {
     alertWarningBody:
       "The full backend, CRUD behavior and final authorization logic are still waiting for the next milestones.",
     tableTitle: "Table",
-    tableBody: "Simple responsive table rendering for lists, admin views or audit-style data.",
+    tableBody:
+      "Simple responsive table rendering for lists, admin views or audit-style data.",
     tableCaption: "Sample set from the current frontend state.",
     tableColName: "Item",
     tableColStatus: "Status",
@@ -240,7 +247,8 @@ export const en = {
   },
   state: {
     unauthorizedTitle: "Sign-in required",
-    unauthorizedBody: "Please sign in on the landing page before opening this route.",
+    unauthorizedBody:
+      "Please sign in on the landing page before opening this route.",
     notFoundTitle: "This page does not exist",
     notFoundBody: "Most likely the route is not implemented yet."
   },
@@ -250,7 +258,8 @@ export const en = {
     displayNameLabel: "Display name",
     avatarLabel: "Avatar URL",
     avatarPlaceholder: "https://example.com/avatar-image",
-    avatarHint: "Provide an image URL, or leave it empty to use the monogram avatar.",
+    avatarHint:
+      "Provide an image URL, or leave it empty to use the monogram avatar.",
     languageLabel: "Interface language",
     themeLabel: "Preferred theme",
     previewTitle: "Live preview",
