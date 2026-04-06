@@ -1,9 +1,5 @@
 import type { PostgrestError } from "@supabase/supabase-js";
-import {
-  createLocalizedText,
-  isLocalizedText,
-  resolveLocalizedText
-} from "@/lib/localized-text";
+import { isLocalizedText, resolveLocalizedText } from "@/lib/localized-text";
 import type {
   AppPreferenceInput,
   AuthProvider,
@@ -372,10 +368,10 @@ export async function createItemForSession(
     .from("items")
     .insert({
       owner_id: session.id,
-      title: input.title,
-      title_i18n: createLocalizedText(input.title),
-      summary: input.summary,
-      summary_i18n: createLocalizedText(input.summary),
+      title: input.titleI18n.hu,
+      title_i18n: input.titleI18n,
+      summary: input.summaryI18n.hu,
+      summary_i18n: input.summaryI18n,
       visibility: input.visibility,
       is_pinned: input.isPinned
     })
@@ -424,10 +420,10 @@ export async function updateItemForSession(
   const { data, error } = await supabase
     .from("items")
     .update({
-      title: input.title,
-      title_i18n: createLocalizedText(input.title),
-      summary: input.summary,
-      summary_i18n: createLocalizedText(input.summary),
+      title: input.titleI18n.hu,
+      title_i18n: input.titleI18n,
+      summary: input.summaryI18n.hu,
+      summary_i18n: input.summaryI18n,
       visibility: input.visibility,
       is_pinned: input.isPinned
     })

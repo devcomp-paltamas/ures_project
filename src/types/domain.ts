@@ -90,8 +90,8 @@ export interface AppPreferenceInput {
 }
 
 export interface ItemInput {
-  title: string;
-  summary: string;
+  titleI18n: LocalizedText;
+  summaryI18n: LocalizedText;
   visibility: ItemVisibility;
   isPinned: boolean;
 }

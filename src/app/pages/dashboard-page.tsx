@@ -70,7 +70,11 @@ export function DashboardPage() {
         profile={profileData?.profile ?? null}
       />
 
-      <ItemFeed isLoading={isLoading} items={data?.items ?? []} />
+      <ItemFeed
+        bearerToken={bearerToken}
+        isLoading={isLoading}
+        items={data?.items ?? []}
+      />
     </div>
   );
 }

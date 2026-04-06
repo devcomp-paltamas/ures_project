@@ -1,9 +1,6 @@
 import { appConfig } from "@/lib/constants";
 import { demoSessions } from "@/lib/demo-data";
-import {
-  createLocalizedText,
-  resolveLocalizedText
-} from "@/lib/localized-text";
+import { resolveLocalizedText } from "@/lib/localized-text";
 import {
   readDemoDatabase,
   readSession,
@@ -226,10 +223,10 @@ export async function mockCreateItem(
   const item: ItemRecord = {
     id: generateId("item"),
     ownerId: session.id,
-    title: input.title,
-    titleI18n: createLocalizedText(input.title),
-    summary: input.summary,
-    summaryI18n: createLocalizedText(input.summary),
+    title: input.titleI18n[session.language],
+    titleI18n: input.titleI18n,
+    summary: input.summaryI18n[session.language],
+    summaryI18n: input.summaryI18n,
     visibility: input.visibility,
     isPinned: input.isPinned,
     createdAt: now,
@@ -259,10 +256,10 @@ export async function mockUpdateItem(
     throw new Error("FORBIDDEN");
   }
 
-  item.title = input.title;
-  item.titleI18n = createLocalizedText(input.title);
-  item.summary = input.summary;
-  item.summaryI18n = createLocalizedText(input.summary);
+  item.title = input.titleI18n[session.language];
+  item.titleI18n = input.titleI18n;
+  item.summary = input.summaryI18n[session.language];
+  item.summaryI18n = input.summaryI18n;
   item.visibility = input.visibility;
   item.isPinned = input.isPinned;
   item.updatedAt = new Date().toISOString();

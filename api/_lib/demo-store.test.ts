@@ -70,8 +70,14 @@ describe("demo api store", () => {
     });
 
     const createdItem = createItemForSession(session, {
-      title: "Server item",
-      summary: "Created through API store",
+      titleI18n: {
+        hu: "Szerver elem",
+        en: "Server item"
+      },
+      summaryI18n: {
+        hu: "API store-on keresztül létrehozva",
+        en: "Created through API store"
+      },
       visibility: "members",
       isPinned: true
     });
@@ -79,5 +85,6 @@ describe("demo api store", () => {
     expect(profileResult.profile.displayName).toBe("Updated Alma");
     expect(createdItem.ownerId).toBe(session.id);
     expect(createdItem.isPinned).toBe(true);
+    expect(createdItem.titleI18n?.en).toBe("Server item");
   });
 });
