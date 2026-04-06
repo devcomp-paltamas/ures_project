@@ -26,8 +26,8 @@ import {
   SelectValue
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useAuth } from "@/providers/auth-provider";
-import { useI18n } from "@/providers/i18n-provider";
+import { useAuth } from "@/providers/use-auth";
+import { useI18n } from "@/providers/use-i18n";
 import { updateProfilePreferences } from "@/features/preferences/preferences-service";
 import { getLocaleLabel, getThemeLabel } from "@/lib/i18n/helpers";
 import type {

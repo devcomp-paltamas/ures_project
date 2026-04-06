@@ -2,7 +2,7 @@ import { ArrowRight, Orbit, ShieldCheck, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useI18n } from "@/providers/i18n-provider";
+import { useI18n } from "@/providers/use-i18n";
 
 export function LandingHero() {
   const { t } = useI18n();

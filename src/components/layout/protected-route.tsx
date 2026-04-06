@@ -1,8 +1,8 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { LoadingScreen } from "@/components/common/loading-screen";
 import { RouteState } from "@/components/common/route-state";
-import { useAuth } from "@/providers/auth-provider";
-import { useI18n } from "@/providers/i18n-provider";
+import { useAuth } from "@/providers/use-auth";
+import { useI18n } from "@/providers/use-i18n";
 
 export function ProtectedRoute() {
   const { isAuthenticated, isReady } = useAuth();

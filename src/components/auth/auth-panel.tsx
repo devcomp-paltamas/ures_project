@@ -14,8 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getAuthErrorKey, isUsingMockAuth } from "@/features/auth/auth-service";
-import { useAuth } from "@/providers/auth-provider";
-import { useI18n } from "@/providers/i18n-provider";
+import { useAuth } from "@/providers/use-auth";
+import { useI18n } from "@/providers/use-i18n";
 
 type AuthMode = "signin" | "signup";
 

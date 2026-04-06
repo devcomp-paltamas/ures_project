@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode
-} from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import {
   getBearerToken,
   getInitialAuthState,
@@ -16,26 +10,8 @@ import {
   subscribeToAuthState,
   type AuthStateSnapshot
 } from "@/features/auth/auth-service";
+import { AuthContext, type AuthContextValue } from "@/providers/auth-context";
 import type { UserSession } from "@/types/domain";
-
-interface AuthContextValue {
-  session: UserSession | null;
-  bearerToken: string | null;
-  isAuthenticated: boolean;
-  isReady: boolean;
-  signIn: (email: string, password: string) => Promise<void>;
-  signUp: (
-    email: string,
-    password: string,
-    displayName: string
-  ) => Promise<void>;
-  signInGoogle: () => Promise<void>;
-  signOut: () => Promise<void>;
-  updateSession: (next: Partial<UserSession>) => void;
-  refreshBearerToken: () => Promise<string | null>;
-}
-
-const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [authState, setAuthState] = useState<AuthStateSnapshot>(() =>
@@ -126,13 +102,4 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
-
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used inside AuthProvider.");
-  }
-
-  return context;
 }

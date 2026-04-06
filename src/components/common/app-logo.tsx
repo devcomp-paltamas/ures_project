@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { useI18n } from "@/providers/i18n-provider";
+import { useI18n } from "@/providers/use-i18n";
 
 export function AppLogo({ className }: { className?: string }) {
   const { t } = useI18n();

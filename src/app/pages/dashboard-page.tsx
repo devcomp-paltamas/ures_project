@@ -15,8 +15,8 @@ import {
   getLocaleLabel,
   getThemeLabel
 } from "@/lib/i18n/helpers";
-import { useAuth } from "@/providers/auth-provider";
-import { useI18n } from "@/providers/i18n-provider";
+import { useAuth } from "@/providers/use-auth";
+import { useI18n } from "@/providers/use-i18n";
 
 export function DashboardPage() {
   const { bearerToken, isAuthenticated, session } = useAuth();

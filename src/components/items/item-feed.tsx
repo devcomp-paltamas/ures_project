@@ -11,8 +11,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useI18n } from "@/providers/i18n-provider";
-import { useAuth } from "@/providers/auth-provider";
+import { useI18n } from "@/providers/use-i18n";
+import { useAuth } from "@/providers/use-auth";
 import type { ItemRecord } from "@/types/domain";
 import { formatDate } from "@/lib/utils";
 

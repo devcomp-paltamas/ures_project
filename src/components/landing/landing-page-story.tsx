@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
-import { useI18n } from "@/providers/i18n-provider";
+import { useI18n } from "@/providers/use-i18n";
 
 const icons = [LayoutPanelTop, Database, Shield] as const;
 

@@ -19,9 +19,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { useAuth } from "@/providers/auth-provider";
-import { useI18n } from "@/providers/i18n-provider";
-import { useTheme } from "@/providers/theme-provider";
+import { useAuth } from "@/providers/use-auth";
+import { useI18n } from "@/providers/use-i18n";
+import { useTheme } from "@/providers/use-theme";
 import { getLocaleLabel, getThemeLabel } from "@/lib/i18n/helpers";
 import type { Locale, ThemeMode } from "@/types/domain";
 import { cn } from "@/lib/utils";

@@ -1,26 +1,15 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode
-} from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import {
   readThemePreference,
   writeThemePreference
 } from "@/lib/browser-storage";
+import {
+  ThemeContext,
+  type ResolvedTheme,
+  type ThemeContextValue
+} from "@/providers/theme-context";
+import { useAuth } from "@/providers/use-auth";
 import type { ThemeMode } from "@/types/domain";
-import { useAuth } from "@/providers/auth-provider";
-
-type ResolvedTheme = "light" | "dark";
-
-interface ThemeContextValue {
-  theme: ThemeMode;
-  resolvedTheme: ResolvedTheme;
-  setTheme: (theme: ThemeMode) => void;
-}
-
-const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const { session } = useAuth();
@@ -64,13 +53,4 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
-}
-
-export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error("useTheme must be used inside ThemeProvider.");
-  }
-
-  return context;
 }

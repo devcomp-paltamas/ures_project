@@ -8,7 +8,7 @@ import {
   CardTitle
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useI18n } from "@/providers/i18n-provider";
+import { useI18n } from "@/providers/use-i18n";
 import type { LandingBlock } from "@/types/domain";
 import { cn } from "@/lib/utils";
 

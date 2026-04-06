@@ -1,10 +1,17 @@
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { Check, ChevronDown } from "lucide-react";
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentProps, ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/utils";
 
-export const Select = SelectPrimitive.Root;
-export const SelectValue = SelectPrimitive.Value;
+export function Select(props: ComponentProps<typeof SelectPrimitive.Root>) {
+  return <SelectPrimitive.Root {...props} />;
+}
+
+export function SelectValue(
+  props: ComponentProps<typeof SelectPrimitive.Value>
+) {
+  return <SelectPrimitive.Value {...props} />;
+}
 
 export function SelectTrigger({
   className,

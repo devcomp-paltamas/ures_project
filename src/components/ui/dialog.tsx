@@ -1,12 +1,29 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentProps, ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/utils";
 
-export const Dialog = DialogPrimitive.Root;
-export const DialogTrigger = DialogPrimitive.Trigger;
-export const DialogPortal = DialogPrimitive.Portal;
-export const DialogClose = DialogPrimitive.Close;
+export function Dialog(props: ComponentProps<typeof DialogPrimitive.Root>) {
+  return <DialogPrimitive.Root {...props} />;
+}
+
+export function DialogTrigger(
+  props: ComponentProps<typeof DialogPrimitive.Trigger>
+) {
+  return <DialogPrimitive.Trigger {...props} />;
+}
+
+export function DialogPortal(
+  props: ComponentProps<typeof DialogPrimitive.Portal>
+) {
+  return <DialogPrimitive.Portal {...props} />;
+}
+
+export function DialogClose(
+  props: ComponentProps<typeof DialogPrimitive.Close>
+) {
+  return <DialogPrimitive.Close {...props} />;
+}
 
 export function DialogOverlay({
   className,

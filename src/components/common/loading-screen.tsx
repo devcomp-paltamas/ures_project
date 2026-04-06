@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { AppLogo } from "@/components/common/app-logo";
-import { useI18n } from "@/providers/i18n-provider";
+import { useI18n } from "@/providers/use-i18n";
 
 export function LoadingScreen() {
   const { t } = useI18n();
